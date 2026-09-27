@@ -2,6 +2,7 @@ import os
 
 from src.cards import load_bands, format_card, format_band_list
 from src.collection import load_player, save_player, get_owned_bands
+from src.packs import PACKS, open_pack
 
 PROMPT = "$ "
 
@@ -10,6 +11,8 @@ def cmd_help(args: list[str]) -> None:
     print("Available commands:")
     print("  $bands             - list all bands you own")
     print("  $band <name>       - show the detailed card for a band you own")
+    print("  $packs             - list available pack types and their cost")
+    print("  $open <pack type>  - buy and open a pack")
     print("  $coins             - show how many coins you have")
     print("  $clear             - clear the terminal")
     print("  $help              - show this help")
@@ -48,6 +51,37 @@ def cmd_band(args: list[str]) -> None:
     print(format_card(match))
 
 
+def cmd_packs(args: list[str]) -> None:
+    print("Available packs:")
+    print(f"  {'Type':<24}{'Name':<28}{'Cost':<10}")
+    for pack_type, pack in PACKS.items():
+        print(f"  {pack_type:<24}{pack['display_name']:<28}{pack['cost']} coins")
+    print()
+    print("Use: $open <type>")
+
+
+def cmd_open(args: list[str]) -> None:
+    if not args:
+        print("Usage: $open <pack type>")
+        print("Type $packs to see the available pack types.")
+        return
+
+    pack_type = args[0].lower()
+    player = load_player()
+    result = open_pack(pack_type, player)
+
+    if isinstance(result, str):
+        print(result)
+        return
+
+    save_player(player)
+
+    print("You opened the pack and got:")
+    for band in result:
+        print(f"  - {band['name']} ({band['rarity']})")
+    print(f"Coins remaining: {player['coins']}")
+
+
 def cmd_coins(args: list[str]) -> None:
     player = load_player()
     print(f"Coins: {player['coins']}")
@@ -66,6 +100,8 @@ COMMANDS = {
     "help": cmd_help,
     "bands": cmd_bands,
     "band": cmd_band,
+    "packs": cmd_packs,
+    "open": cmd_open,
     "coins": cmd_coins,
     "clear": cmd_clear,
     "exit": cmd_exit,

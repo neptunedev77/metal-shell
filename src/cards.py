@@ -42,8 +42,8 @@ def format_card(band: dict) -> str:
 
 def format_band_list(bands: list[dict]) -> str:
     """Format a list of bands in compact form, one line per band."""
-    lines = []
+    lines = [f"{'ID':<26}{'Name':<20}{'Genre':<26}{'Rarity'}"]
     for band in bands:
         stars = RARITY_STARS.get(band["rarity"], "?????")
-        lines.append(f"{band['name']:<20} {band['genre']:<28} {stars}")
+        lines.append(f"{band['id']:<26}{band['name']:<20}{band['genre']:<26}{stars}")
     return "\n".join(lines)

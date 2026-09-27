@@ -1,4 +1,20 @@
 {
-  "coins": 500,
-  "collection": []
+  "coins": 0,
+  "collection": [
+    "manowar",
+    "rainbow",
+    "rainbow",
+    "darkthrone",
+    "bathory",
+    "gorgoroth",
+    "architects",
+    "as_i_lay_dying",
+    "killswitch_engage",
+    "lorna_shore",
+    "whitechapel",
+    "whitechapel",
+    "sabaton",
+    "blind_guardian",
+    "hammerfall"
+  ]
 }
