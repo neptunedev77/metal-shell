@@ -1,3 +1,5 @@
+import os
+
 from src.cards import load_bands, format_card, format_band_list
 from src.collection import load_player, save_player, get_owned_bands
 
@@ -5,12 +7,13 @@ PROMPT = "$ "
 
 
 def cmd_help(args: list[str]) -> None:
-    print("Comandos disponiveis:")
-    print("  $bands             - lista as bandas que possuis")
-    print("  $bands <nome>      - mostra a carta detalhada dessa banda")
-    print("  $coins             - mostra quantos coins tens")
-    print("  $help              - mostra esta ajuda")
-    print("  $exit              - sai do jogo")
+    print("Available commands:")
+    print("  $bands             - list all bands you own")
+    print("  $band <name>       - show the detailed card for a band you own")
+    print("  $coins             - show how many coins you have")
+    print("  $clear             - clear the terminal")
+    print("  $help              - show this help")
+    print("  $exit              - exit the game")
 
 
 def cmd_bands(args: list[str]) -> None:
@@ -18,12 +21,21 @@ def cmd_bands(args: list[str]) -> None:
     player = load_player()
     owned = get_owned_bands(player, catalog)
 
-    if not args:
-        if not owned:
-            print("A tua coleccao esta vazia. Ainda nao tens nenhuma banda.")
-        else:
-            print(format_band_list(owned))
+    if not owned:
+        print("Your collection is empty. You don't own any bands yet.")
         return
+
+    print(format_band_list(owned))
+
+
+def cmd_band(args: list[str]) -> None:
+    if not args:
+        print("Usage: $band <name>")
+        return
+
+    catalog = load_bands()
+    player = load_player()
+    owned = get_owned_bands(player, catalog)
 
     query = " ".join(args).lower()
     match = next(
@@ -31,7 +43,7 @@ def cmd_bands(args: list[str]) -> None:
         None,
     )
     if match is None:
-        print(f"Nao possuis nenhuma banda chamada '{' '.join(args)}'.")
+        print(f"You don't own a band called '{' '.join(args)}'.")
         return
     print(format_card(match))
 
@@ -41,21 +53,27 @@ def cmd_coins(args: list[str]) -> None:
     print(f"Coins: {player['coins']}")
 
 
+def cmd_clear(args: list[str]) -> None:
+    os.system("clear")
+
+
 def cmd_exit(args: list[str]) -> None:
-    print("Ate a proxima!")
+    print("See you next time!")
     raise SystemExit
 
 
 COMMANDS = {
     "help": cmd_help,
     "bands": cmd_bands,
+    "band": cmd_band,
     "coins": cmd_coins,
+    "clear": cmd_clear,
     "exit": cmd_exit,
 }
 
 
 def main():
-    print("Bem-vindo ao Metal Shell. Escreve $help para ver os comandos.")
+    print("Welcome to Metal Shell. Type $help to see the available commands.")
     while True:
         try:
             raw = input(PROMPT).strip()
@@ -74,7 +92,7 @@ def main():
 
         handler = COMMANDS.get(command)
         if handler is None:
-            print(f"Comando desconhecido: {command}. Escreve $help para ver os comandos.")
+            print(f"Unknown command: {command}. Type $help to see the available commands.")
             continue
 
         try:

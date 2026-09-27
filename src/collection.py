@@ -15,7 +15,7 @@ def save_player(player: dict, path: Path = PLAYER_PATH) -> None:
 
 
 def get_owned_bands(player: dict, catalog: list[dict]) -> list[dict]:
-    """Cruza os IDs da coleccao do jogador com os dados completos do catalogo."""
+    """Cross-reference the player's owned band IDs with the full catalog data."""
     owned_ids = set(player["collection"])
     return [band for band in catalog if band["id"] in owned_ids]
 
@@ -29,7 +29,7 @@ def add_coins(player: dict, amount: int) -> None:
 
 
 def spend_coins(player: dict, amount: int) -> bool:
-    """Tenta gastar coins. Devolve True se conseguiu, False se nao tem saldo."""
+    """Try to spend coins. Returns True if successful, False if insufficient balance."""
     if player["coins"] < amount:
         return False
     player["coins"] -= amount
