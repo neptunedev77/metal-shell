@@ -1,1 +1,77 @@
-[]
+[
+  {
+    "id": "gojira",
+    "name": "Gojira",
+    "genre": "Progressive Metal",
+    "pack_type": "extreme_metal",
+    "rarity": "Epic",
+    "attributes": {
+      "riffs": 92,
+      "vocals": 84,
+      "drums": 90,
+      "heaviness": 97,
+      "atmosphere": 88,
+      "popularity": 91
+    }
+  },
+  {
+    "id": "metallica",
+    "name": "Metallica",
+    "genre": "Thrash Metal",
+    "pack_type": "classic_metal",
+    "rarity": "Legendary",
+    "attributes": {
+      "riffs": 95,
+      "vocals": 88,
+      "drums": 85,
+      "heaviness": 80,
+      "atmosphere": 75,
+      "popularity": 99
+    }
+  },
+  {
+    "id": "slipknot",
+    "name": "Slipknot",
+    "genre": "Nu Metal",
+    "pack_type": "metalcore",
+    "rarity": "Legendary",
+    "attributes": {
+      "riffs": 85,
+      "vocals": 90,
+      "drums": 92,
+      "heaviness": 93,
+      "atmosphere": 87,
+      "popularity": 97
+    }
+  },
+  {
+    "id": "polyphia",
+    "name": "Polyphia",
+    "genre": "Progressive Instrumental",
+    "pack_type": "classic_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 96,
+      "vocals": 40,
+      "drums": 78,
+      "heaviness": 55,
+      "atmosphere": 80,
+      "popularity": 78
+    }
+  },
+  {
+    "id": "at_the_gates",
+    "name": "At the Gates",
+    "genre": "Melodic Death Metal",
+    "pack_type": "death_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 90,
+      "vocals": 82,
+      "drums": 84,
+      "heaviness": 91,
+      "atmosphere": 86,
+      "popularity": 76
+    }
+  }
+]
