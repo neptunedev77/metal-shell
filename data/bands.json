@@ -1,24 +1,159 @@
 [
   {
-    "id": "gojira",
-    "name": "Gojira",
-    "genre": "Progressive Metal",
-    "pack_type": "extreme_metal",
+    "id": "iron_maiden",
+    "name": "Iron Maiden",
+    "genre": "Heavy Metal",
+    "pack_type": "heavy_metal",
+    "rarity": "Legendary",
+    "attributes": {
+      "riffs": 90,
+      "vocals": 92,
+      "drums": 86,
+      "heaviness": 78,
+      "atmosphere": 85,
+      "popularity": 97
+    }
+  },
+  {
+    "id": "black_sabbath",
+    "name": "Black Sabbath",
+    "genre": "Heavy Metal",
+    "pack_type": "heavy_metal",
+    "rarity": "Legendary",
+    "attributes": {
+      "riffs": 88,
+      "vocals": 80,
+      "drums": 78,
+      "heaviness": 85,
+      "atmosphere": 90,
+      "popularity": 98
+    }
+  },
+  {
+    "id": "judas_priest",
+    "name": "Judas Priest",
+    "genre": "Heavy Metal",
+    "pack_type": "heavy_metal",
     "rarity": "Epic",
     "attributes": {
-      "riffs": 92,
-      "vocals": 84,
-      "drums": 90,
-      "heaviness": 97,
-      "atmosphere": 88,
-      "popularity": 91
+      "riffs": 86,
+      "vocals": 94,
+      "drums": 82,
+      "heaviness": 80,
+      "atmosphere": 78,
+      "popularity": 90
+    }
+  },
+  {
+    "id": "motorhead",
+    "name": "Motorhead",
+    "genre": "Heavy Metal",
+    "pack_type": "heavy_metal",
+    "rarity": "Epic",
+    "attributes": {
+      "riffs": 84,
+      "vocals": 70,
+      "drums": 85,
+      "heaviness": 82,
+      "atmosphere": 65,
+      "popularity": 88
+    }
+  },
+  {
+    "id": "dio",
+    "name": "Dio",
+    "genre": "Heavy Metal",
+    "pack_type": "heavy_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 80,
+      "vocals": 95,
+      "drums": 78,
+      "heaviness": 75,
+      "atmosphere": 82,
+      "popularity": 82
+    }
+  },
+  {
+    "id": "deep_purple",
+    "name": "Deep Purple",
+    "genre": "Heavy Metal",
+    "pack_type": "heavy_metal",
+    "rarity": "Epic",
+    "attributes": {
+      "riffs": 88,
+      "vocals": 85,
+      "drums": 84,
+      "heaviness": 65,
+      "atmosphere": 75,
+      "popularity": 89
+    }
+  },
+  {
+    "id": "rainbow",
+    "name": "Rainbow",
+    "genre": "Heavy Metal",
+    "pack_type": "heavy_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 82,
+      "vocals": 88,
+      "drums": 80,
+      "heaviness": 68,
+      "atmosphere": 78,
+      "popularity": 75
+    }
+  },
+  {
+    "id": "saxon",
+    "name": "Saxon",
+    "genre": "Heavy Metal",
+    "pack_type": "heavy_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 80,
+      "vocals": 75,
+      "drums": 78,
+      "heaviness": 76,
+      "atmosphere": 65,
+      "popularity": 68
+    }
+  },
+  {
+    "id": "accept",
+    "name": "Accept",
+    "genre": "Heavy Metal",
+    "pack_type": "heavy_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 82,
+      "vocals": 78,
+      "drums": 80,
+      "heaviness": 80,
+      "atmosphere": 62,
+      "popularity": 70
+    }
+  },
+  {
+    "id": "manowar",
+    "name": "Manowar",
+    "genre": "Heavy Metal",
+    "pack_type": "heavy_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 78,
+      "vocals": 82,
+      "drums": 76,
+      "heaviness": 85,
+      "atmosphere": 80,
+      "popularity": 72
     }
   },
   {
     "id": "metallica",
     "name": "Metallica",
     "genre": "Thrash Metal",
-    "pack_type": "classic_metal",
+    "pack_type": "thrash_metal",
     "rarity": "Legendary",
     "attributes": {
       "riffs": 95,
@@ -30,10 +165,535 @@
     }
   },
   {
+    "id": "slayer",
+    "name": "Slayer",
+    "genre": "Thrash Metal",
+    "pack_type": "thrash_metal",
+    "rarity": "Legendary",
+    "attributes": {
+      "riffs": 94,
+      "vocals": 75,
+      "drums": 92,
+      "heaviness": 96,
+      "atmosphere": 70,
+      "popularity": 95
+    }
+  },
+  {
+    "id": "megadeth",
+    "name": "Megadeth",
+    "genre": "Thrash Metal",
+    "pack_type": "thrash_metal",
+    "rarity": "Epic",
+    "attributes": {
+      "riffs": 96,
+      "vocals": 80,
+      "drums": 88,
+      "heaviness": 85,
+      "atmosphere": 68,
+      "popularity": 92
+    }
+  },
+  {
+    "id": "anthrax",
+    "name": "Anthrax",
+    "genre": "Thrash Metal",
+    "pack_type": "thrash_metal",
+    "rarity": "Epic",
+    "attributes": {
+      "riffs": 88,
+      "vocals": 78,
+      "drums": 86,
+      "heaviness": 80,
+      "atmosphere": 62,
+      "popularity": 85
+    }
+  },
+  {
+    "id": "exodus",
+    "name": "Exodus",
+    "genre": "Thrash Metal",
+    "pack_type": "thrash_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 90,
+      "vocals": 72,
+      "drums": 85,
+      "heaviness": 84,
+      "atmosphere": 60,
+      "popularity": 75
+    }
+  },
+  {
+    "id": "testament",
+    "name": "Testament",
+    "genre": "Thrash Metal",
+    "pack_type": "thrash_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 89,
+      "vocals": 76,
+      "drums": 87,
+      "heaviness": 85,
+      "atmosphere": 65,
+      "popularity": 78
+    }
+  },
+  {
+    "id": "kreator",
+    "name": "Kreator",
+    "genre": "Thrash Metal",
+    "pack_type": "thrash_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 90,
+      "vocals": 70,
+      "drums": 88,
+      "heaviness": 90,
+      "atmosphere": 68,
+      "popularity": 76
+    }
+  },
+  {
+    "id": "sepultura",
+    "name": "Sepultura",
+    "genre": "Thrash Metal",
+    "pack_type": "thrash_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 87,
+      "vocals": 74,
+      "drums": 86,
+      "heaviness": 88,
+      "atmosphere": 72,
+      "popularity": 80
+    }
+  },
+  {
+    "id": "overkill",
+    "name": "Overkill",
+    "genre": "Thrash Metal",
+    "pack_type": "thrash_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 85,
+      "vocals": 73,
+      "drums": 84,
+      "heaviness": 82,
+      "atmosphere": 58,
+      "popularity": 68
+    }
+  },
+  {
+    "id": "death_angel",
+    "name": "Death Angel",
+    "genre": "Thrash Metal",
+    "pack_type": "thrash_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 84,
+      "vocals": 72,
+      "drums": 83,
+      "heaviness": 80,
+      "atmosphere": 60,
+      "popularity": 65
+    }
+  },
+  {
+    "id": "death",
+    "name": "Death",
+    "genre": "Death Metal",
+    "pack_type": "death_metal",
+    "rarity": "Epic",
+    "attributes": {
+      "riffs": 92,
+      "vocals": 68,
+      "drums": 90,
+      "heaviness": 92,
+      "atmosphere": 75,
+      "popularity": 88
+    }
+  },
+  {
+    "id": "cannibal_corpse",
+    "name": "Cannibal Corpse",
+    "genre": "Death Metal",
+    "pack_type": "death_metal",
+    "rarity": "Epic",
+    "attributes": {
+      "riffs": 88,
+      "vocals": 62,
+      "drums": 94,
+      "heaviness": 98,
+      "atmosphere": 60,
+      "popularity": 90
+    }
+  },
+  {
+    "id": "obituary",
+    "name": "Obituary",
+    "genre": "Death Metal",
+    "pack_type": "death_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 82,
+      "vocals": 65,
+      "drums": 86,
+      "heaviness": 90,
+      "atmosphere": 70,
+      "popularity": 78
+    }
+  },
+  {
+    "id": "morbid_angel",
+    "name": "Morbid Angel",
+    "genre": "Death Metal",
+    "pack_type": "death_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 86,
+      "vocals": 63,
+      "drums": 90,
+      "heaviness": 95,
+      "atmosphere": 78,
+      "popularity": 80
+    }
+  },
+  {
+    "id": "bolt_thrower",
+    "name": "Bolt Thrower",
+    "genre": "Death Metal",
+    "pack_type": "death_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 80,
+      "vocals": 60,
+      "drums": 85,
+      "heaviness": 92,
+      "atmosphere": 65,
+      "popularity": 72
+    }
+  },
+  {
+    "id": "deicide",
+    "name": "Deicide",
+    "genre": "Death Metal",
+    "pack_type": "death_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 83,
+      "vocals": 60,
+      "drums": 88,
+      "heaviness": 94,
+      "atmosphere": 62,
+      "popularity": 74
+    }
+  },
+  {
+    "id": "suffocation",
+    "name": "Suffocation",
+    "genre": "Death Metal",
+    "pack_type": "death_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 88,
+      "vocals": 62,
+      "drums": 93,
+      "heaviness": 96,
+      "atmosphere": 60,
+      "popularity": 76
+    }
+  },
+  {
+    "id": "autopsy",
+    "name": "Autopsy",
+    "genre": "Death Metal",
+    "pack_type": "death_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 78,
+      "vocals": 58,
+      "drums": 82,
+      "heaviness": 90,
+      "atmosphere": 75,
+      "popularity": 65
+    }
+  },
+  {
+    "id": "immolation",
+    "name": "Immolation",
+    "genre": "Death Metal",
+    "pack_type": "death_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 84,
+      "vocals": 60,
+      "drums": 87,
+      "heaviness": 92,
+      "atmosphere": 80,
+      "popularity": 70
+    }
+  },
+  {
+    "id": "vader",
+    "name": "Vader",
+    "genre": "Death Metal",
+    "pack_type": "death_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 82,
+      "vocals": 62,
+      "drums": 89,
+      "heaviness": 93,
+      "atmosphere": 65,
+      "popularity": 69
+    }
+  },
+  {
+    "id": "mayhem",
+    "name": "Mayhem",
+    "genre": "Black Metal",
+    "pack_type": "black_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 78,
+      "vocals": 55,
+      "drums": 80,
+      "heaviness": 92,
+      "atmosphere": 95,
+      "popularity": 82
+    }
+  },
+  {
+    "id": "darkthrone",
+    "name": "Darkthrone",
+    "genre": "Black Metal",
+    "pack_type": "black_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 75,
+      "vocals": 52,
+      "drums": 72,
+      "heaviness": 88,
+      "atmosphere": 93,
+      "popularity": 80
+    }
+  },
+  {
+    "id": "emperor",
+    "name": "Emperor",
+    "genre": "Black Metal",
+    "pack_type": "black_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 85,
+      "vocals": 60,
+      "drums": 85,
+      "heaviness": 88,
+      "atmosphere": 96,
+      "popularity": 78
+    }
+  },
+  {
+    "id": "burzum",
+    "name": "Burzum",
+    "genre": "Black Metal",
+    "pack_type": "black_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 68,
+      "vocals": 50,
+      "drums": 55,
+      "heaviness": 85,
+      "atmosphere": 97,
+      "popularity": 75
+    }
+  },
+  {
+    "id": "immortal",
+    "name": "Immortal",
+    "genre": "Black Metal",
+    "pack_type": "black_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 80,
+      "vocals": 58,
+      "drums": 82,
+      "heaviness": 90,
+      "atmosphere": 90,
+      "popularity": 76
+    }
+  },
+  {
+    "id": "bathory",
+    "name": "Bathory",
+    "genre": "Black Metal",
+    "pack_type": "black_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 72,
+      "vocals": 55,
+      "drums": 70,
+      "heaviness": 88,
+      "atmosphere": 92,
+      "popularity": 79
+    }
+  },
+  {
+    "id": "gorgoroth",
+    "name": "Gorgoroth",
+    "genre": "Black Metal",
+    "pack_type": "black_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 76,
+      "vocals": 55,
+      "drums": 78,
+      "heaviness": 90,
+      "atmosphere": 88,
+      "popularity": 68
+    }
+  },
+  {
+    "id": "dimmu_borgir",
+    "name": "Dimmu Borgir",
+    "genre": "Black Metal",
+    "pack_type": "black_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 82,
+      "vocals": 65,
+      "drums": 84,
+      "heaviness": 88,
+      "atmosphere": 94,
+      "popularity": 84
+    }
+  },
+  {
+    "id": "killswitch_engage",
+    "name": "Killswitch Engage",
+    "genre": "Metalcore",
+    "pack_type": "metalcore",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 82,
+      "vocals": 80,
+      "drums": 85,
+      "heaviness": 85,
+      "atmosphere": 70,
+      "popularity": 84
+    }
+  },
+  {
+    "id": "bring_me_the_horizon",
+    "name": "Bring Me the Horizon",
+    "genre": "Metalcore",
+    "pack_type": "metalcore",
+    "rarity": "Epic",
+    "attributes": {
+      "riffs": 78,
+      "vocals": 82,
+      "drums": 82,
+      "heaviness": 82,
+      "atmosphere": 80,
+      "popularity": 90
+    }
+  },
+  {
+    "id": "parkway_drive",
+    "name": "Parkway Drive",
+    "genre": "Metalcore",
+    "pack_type": "metalcore",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 83,
+      "vocals": 76,
+      "drums": 86,
+      "heaviness": 88,
+      "atmosphere": 72,
+      "popularity": 82
+    }
+  },
+  {
+    "id": "as_i_lay_dying",
+    "name": "As I Lay Dying",
+    "genre": "Metalcore",
+    "pack_type": "metalcore",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 82,
+      "vocals": 74,
+      "drums": 85,
+      "heaviness": 87,
+      "atmosphere": 65,
+      "popularity": 76
+    }
+  },
+  {
+    "id": "trivium",
+    "name": "Trivium",
+    "genre": "Metalcore",
+    "pack_type": "metalcore",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 88,
+      "vocals": 80,
+      "drums": 85,
+      "heaviness": 84,
+      "atmosphere": 70,
+      "popularity": 80
+    }
+  },
+  {
+    "id": "architects",
+    "name": "Architects",
+    "genre": "Metalcore",
+    "pack_type": "metalcore",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 80,
+      "vocals": 78,
+      "drums": 84,
+      "heaviness": 86,
+      "atmosphere": 78,
+      "popularity": 78
+    }
+  },
+  {
+    "id": "august_burns_red",
+    "name": "August Burns Red",
+    "genre": "Metalcore",
+    "pack_type": "metalcore",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 84,
+      "vocals": 70,
+      "drums": 88,
+      "heaviness": 85,
+      "atmosphere": 68,
+      "popularity": 70
+    }
+  },
+  {
+    "id": "bullet_for_my_valentine",
+    "name": "Bullet for My Valentine",
+    "genre": "Metalcore",
+    "pack_type": "metalcore",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 80,
+      "vocals": 82,
+      "drums": 80,
+      "heaviness": 82,
+      "atmosphere": 70,
+      "popularity": 79
+    }
+  },
+  {
     "id": "slipknot",
     "name": "Slipknot",
     "genre": "Nu Metal",
-    "pack_type": "metalcore",
+    "pack_type": "nu_metal",
     "rarity": "Legendary",
     "attributes": {
       "riffs": 85,
@@ -45,10 +705,325 @@
     }
   },
   {
+    "id": "korn",
+    "name": "Korn",
+    "genre": "Nu Metal",
+    "pack_type": "nu_metal",
+    "rarity": "Epic",
+    "attributes": {
+      "riffs": 72,
+      "vocals": 82,
+      "drums": 78,
+      "heaviness": 85,
+      "atmosphere": 75,
+      "popularity": 92
+    }
+  },
+  {
+    "id": "system_of_a_down",
+    "name": "System of a Down",
+    "genre": "Nu Metal",
+    "pack_type": "nu_metal",
+    "rarity": "Legendary",
+    "attributes": {
+      "riffs": 80,
+      "vocals": 88,
+      "drums": 80,
+      "heaviness": 82,
+      "atmosphere": 85,
+      "popularity": 93
+    }
+  },
+  {
+    "id": "linkin_park",
+    "name": "Linkin Park",
+    "genre": "Nu Metal",
+    "pack_type": "nu_metal",
+    "rarity": "Legendary",
+    "attributes": {
+      "riffs": 68,
+      "vocals": 90,
+      "drums": 75,
+      "heaviness": 70,
+      "atmosphere": 82,
+      "popularity": 95
+    }
+  },
+  {
+    "id": "limp_bizkit",
+    "name": "Limp Bizkit",
+    "genre": "Nu Metal",
+    "pack_type": "nu_metal",
+    "rarity": "Epic",
+    "attributes": {
+      "riffs": 65,
+      "vocals": 75,
+      "drums": 74,
+      "heaviness": 75,
+      "atmosphere": 60,
+      "popularity": 85
+    }
+  },
+  {
+    "id": "deftones",
+    "name": "Deftones",
+    "genre": "Nu Metal",
+    "pack_type": "nu_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 75,
+      "vocals": 85,
+      "drums": 78,
+      "heaviness": 78,
+      "atmosphere": 90,
+      "popularity": 84
+    }
+  },
+  {
+    "id": "disturbed",
+    "name": "Disturbed",
+    "genre": "Nu Metal",
+    "pack_type": "nu_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 74,
+      "vocals": 84,
+      "drums": 78,
+      "heaviness": 80,
+      "atmosphere": 72,
+      "popularity": 83
+    }
+  },
+  {
+    "id": "papa_roach",
+    "name": "Papa Roach",
+    "genre": "Nu Metal",
+    "pack_type": "nu_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 68,
+      "vocals": 78,
+      "drums": 72,
+      "heaviness": 72,
+      "atmosphere": 62,
+      "popularity": 76
+    }
+  },
+  {
+    "id": "helloween",
+    "name": "Helloween",
+    "genre": "Power Metal",
+    "pack_type": "power_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 86,
+      "vocals": 90,
+      "drums": 82,
+      "heaviness": 70,
+      "atmosphere": 82,
+      "popularity": 84
+    }
+  },
+  {
+    "id": "blind_guardian",
+    "name": "Blind Guardian",
+    "genre": "Power Metal",
+    "pack_type": "power_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 84,
+      "vocals": 92,
+      "drums": 80,
+      "heaviness": 68,
+      "atmosphere": 88,
+      "popularity": 80
+    }
+  },
+  {
+    "id": "sabaton",
+    "name": "Sabaton",
+    "genre": "Power Metal",
+    "pack_type": "power_metal",
+    "rarity": "Epic",
+    "attributes": {
+      "riffs": 80,
+      "vocals": 85,
+      "drums": 84,
+      "heaviness": 75,
+      "atmosphere": 85,
+      "popularity": 86
+    }
+  },
+  {
+    "id": "rhapsody_of_fire",
+    "name": "Rhapsody of Fire",
+    "genre": "Power Metal",
+    "pack_type": "power_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 82,
+      "vocals": 88,
+      "drums": 78,
+      "heaviness": 65,
+      "atmosphere": 92,
+      "popularity": 72
+    }
+  },
+  {
+    "id": "hammerfall",
+    "name": "HammerFall",
+    "genre": "Power Metal",
+    "pack_type": "power_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 84,
+      "vocals": 86,
+      "drums": 80,
+      "heaviness": 72,
+      "atmosphere": 78,
+      "popularity": 74
+    }
+  },
+  {
+    "id": "dragonforce",
+    "name": "DragonForce",
+    "genre": "Power Metal",
+    "pack_type": "power_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 92,
+      "vocals": 82,
+      "drums": 95,
+      "heaviness": 70,
+      "atmosphere": 80,
+      "popularity": 78
+    }
+  },
+  {
+    "id": "stratovarius",
+    "name": "Stratovarius",
+    "genre": "Power Metal",
+    "pack_type": "power_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 82,
+      "vocals": 88,
+      "drums": 80,
+      "heaviness": 65,
+      "atmosphere": 85,
+      "popularity": 70
+    }
+  },
+  {
+    "id": "candlemass",
+    "name": "Candlemass",
+    "genre": "Doom Metal",
+    "pack_type": "doom_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 78,
+      "vocals": 75,
+      "drums": 58,
+      "heaviness": 90,
+      "atmosphere": 92,
+      "popularity": 72
+    }
+  },
+  {
+    "id": "my_dying_bride",
+    "name": "My Dying Bride",
+    "genre": "Doom Metal",
+    "pack_type": "doom_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 75,
+      "vocals": 68,
+      "drums": 55,
+      "heaviness": 85,
+      "atmosphere": 95,
+      "popularity": 68
+    }
+  },
+  {
+    "id": "electric_wizard",
+    "name": "Electric Wizard",
+    "genre": "Doom Metal",
+    "pack_type": "doom_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 82,
+      "vocals": 62,
+      "drums": 60,
+      "heaviness": 95,
+      "atmosphere": 90,
+      "popularity": 74
+    }
+  },
+  {
+    "id": "cathedral",
+    "name": "Cathedral",
+    "genre": "Doom Metal",
+    "pack_type": "doom_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 76,
+      "vocals": 65,
+      "drums": 58,
+      "heaviness": 88,
+      "atmosphere": 85,
+      "popularity": 65
+    }
+  },
+  {
+    "id": "saint_vitus",
+    "name": "Saint Vitus",
+    "genre": "Doom Metal",
+    "pack_type": "doom_metal",
+    "rarity": "Common",
+    "attributes": {
+      "riffs": 74,
+      "vocals": 63,
+      "drums": 55,
+      "heaviness": 86,
+      "atmosphere": 82,
+      "popularity": 62
+    }
+  },
+  {
+    "id": "trouble",
+    "name": "Trouble",
+    "genre": "Doom Metal",
+    "pack_type": "doom_metal",
+    "rarity": "Common",
+    "attributes": {
+      "riffs": 76,
+      "vocals": 68,
+      "drums": 60,
+      "heaviness": 84,
+      "atmosphere": 80,
+      "popularity": 60
+    }
+  },
+  {
+    "id": "gojira",
+    "name": "Gojira",
+    "genre": "Progressive Metal",
+    "pack_type": "progressive_metal",
+    "rarity": "Epic",
+    "attributes": {
+      "riffs": 92,
+      "vocals": 84,
+      "drums": 90,
+      "heaviness": 97,
+      "atmosphere": 88,
+      "popularity": 91
+    }
+  },
+  {
     "id": "polyphia",
     "name": "Polyphia",
-    "genre": "Progressive Instrumental",
-    "pack_type": "classic_metal",
+    "genre": "Progressive Metal",
+    "pack_type": "progressive_metal",
     "rarity": "Rare",
     "attributes": {
       "riffs": 96,
@@ -60,10 +1035,595 @@
     }
   },
   {
+    "id": "dream_theater",
+    "name": "Dream Theater",
+    "genre": "Progressive Metal",
+    "pack_type": "progressive_metal",
+    "rarity": "Epic",
+    "attributes": {
+      "riffs": 92,
+      "vocals": 85,
+      "drums": 95,
+      "heaviness": 65,
+      "atmosphere": 88,
+      "popularity": 86
+    }
+  },
+  {
+    "id": "tool",
+    "name": "Tool",
+    "genre": "Progressive Metal",
+    "pack_type": "progressive_metal",
+    "rarity": "Epic",
+    "attributes": {
+      "riffs": 85,
+      "vocals": 80,
+      "drums": 90,
+      "heaviness": 75,
+      "atmosphere": 95,
+      "popularity": 90
+    }
+  },
+  {
+    "id": "opeth",
+    "name": "Opeth",
+    "genre": "Progressive Metal",
+    "pack_type": "progressive_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 88,
+      "vocals": 78,
+      "drums": 84,
+      "heaviness": 78,
+      "atmosphere": 92,
+      "popularity": 82
+    }
+  },
+  {
+    "id": "between_the_buried_and_me",
+    "name": "Between the Buried and Me",
+    "genre": "Progressive Metal",
+    "pack_type": "progressive_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 90,
+      "vocals": 65,
+      "drums": 92,
+      "heaviness": 82,
+      "atmosphere": 80,
+      "popularity": 68
+    }
+  },
+  {
+    "id": "mastodon",
+    "name": "Mastodon",
+    "genre": "Progressive Metal",
+    "pack_type": "progressive_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 86,
+      "vocals": 76,
+      "drums": 88,
+      "heaviness": 82,
+      "atmosphere": 85,
+      "popularity": 84
+    }
+  },
+  {
+    "id": "suicide_silence",
+    "name": "Suicide Silence",
+    "genre": "Deathcore",
+    "pack_type": "deathcore",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 78,
+      "vocals": 60,
+      "drums": 88,
+      "heaviness": 95,
+      "atmosphere": 62,
+      "popularity": 76
+    }
+  },
+  {
+    "id": "whitechapel",
+    "name": "Whitechapel",
+    "genre": "Deathcore",
+    "pack_type": "deathcore",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 80,
+      "vocals": 62,
+      "drums": 90,
+      "heaviness": 96,
+      "atmosphere": 65,
+      "popularity": 74
+    }
+  },
+  {
+    "id": "thy_art_is_murder",
+    "name": "Thy Art Is Murder",
+    "genre": "Deathcore",
+    "pack_type": "deathcore",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 79,
+      "vocals": 60,
+      "drums": 89,
+      "heaviness": 96,
+      "atmosphere": 60,
+      "popularity": 72
+    }
+  },
+  {
+    "id": "carnifex",
+    "name": "Carnifex",
+    "genre": "Deathcore",
+    "pack_type": "deathcore",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 76,
+      "vocals": 58,
+      "drums": 87,
+      "heaviness": 94,
+      "atmosphere": 68,
+      "popularity": 68
+    }
+  },
+  {
+    "id": "job_for_a_cowboy",
+    "name": "Job for a Cowboy",
+    "genre": "Deathcore",
+    "pack_type": "deathcore",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 78,
+      "vocals": 60,
+      "drums": 88,
+      "heaviness": 93,
+      "atmosphere": 62,
+      "popularity": 66
+    }
+  },
+  {
+    "id": "lorna_shore",
+    "name": "Lorna Shore",
+    "genre": "Deathcore",
+    "pack_type": "deathcore",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 82,
+      "vocals": 65,
+      "drums": 92,
+      "heaviness": 97,
+      "atmosphere": 75,
+      "popularity": 80
+    }
+  },
+  {
+    "id": "faith_no_more",
+    "name": "Faith No More",
+    "genre": "Alternative Metal",
+    "pack_type": "alternative_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 75,
+      "vocals": 85,
+      "drums": 78,
+      "heaviness": 68,
+      "atmosphere": 80,
+      "popularity": 82
+    }
+  },
+  {
+    "id": "rage_against_the_machine",
+    "name": "Rage Against the Machine",
+    "genre": "Alternative Metal",
+    "pack_type": "alternative_metal",
+    "rarity": "Epic",
+    "attributes": {
+      "riffs": 82,
+      "vocals": 80,
+      "drums": 78,
+      "heaviness": 75,
+      "atmosphere": 78,
+      "popularity": 90
+    }
+  },
+  {
+    "id": "alice_in_chains",
+    "name": "Alice in Chains",
+    "genre": "Alternative Metal",
+    "pack_type": "alternative_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 78,
+      "vocals": 88,
+      "drums": 74,
+      "heaviness": 72,
+      "atmosphere": 82,
+      "popularity": 84
+    }
+  },
+  {
+    "id": "helmet",
+    "name": "Helmet",
+    "genre": "Alternative Metal",
+    "pack_type": "alternative_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 80,
+      "vocals": 68,
+      "drums": 76,
+      "heaviness": 78,
+      "atmosphere": 62,
+      "popularity": 65
+    }
+  },
+  {
+    "id": "living_colour",
+    "name": "Living Colour",
+    "genre": "Alternative Metal",
+    "pack_type": "alternative_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 82,
+      "vocals": 78,
+      "drums": 76,
+      "heaviness": 65,
+      "atmosphere": 70,
+      "popularity": 68
+    }
+  },
+  {
+    "id": "janes_addiction",
+    "name": "Jane's Addiction",
+    "genre": "Alternative Metal",
+    "pack_type": "alternative_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 74,
+      "vocals": 80,
+      "drums": 72,
+      "heaviness": 62,
+      "atmosphere": 78,
+      "popularity": 70
+    }
+  },
+  {
+    "id": "motley_crue",
+    "name": "Motley Crue",
+    "genre": "Glam Metal",
+    "pack_type": "glam_metal",
+    "rarity": "Epic",
+    "attributes": {
+      "riffs": 78,
+      "vocals": 82,
+      "drums": 72,
+      "heaviness": 55,
+      "atmosphere": 65,
+      "popularity": 86
+    }
+  },
+  {
+    "id": "poison",
+    "name": "Poison",
+    "genre": "Glam Metal",
+    "pack_type": "glam_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 72,
+      "vocals": 80,
+      "drums": 68,
+      "heaviness": 48,
+      "atmosphere": 60,
+      "popularity": 76
+    }
+  },
+  {
+    "id": "ratt",
+    "name": "Ratt",
+    "genre": "Glam Metal",
+    "pack_type": "glam_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 75,
+      "vocals": 78,
+      "drums": 70,
+      "heaviness": 52,
+      "atmosphere": 58,
+      "popularity": 68
+    }
+  },
+  {
+    "id": "twisted_sister",
+    "name": "Twisted Sister",
+    "genre": "Glam Metal",
+    "pack_type": "glam_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 76,
+      "vocals": 84,
+      "drums": 72,
+      "heaviness": 58,
+      "atmosphere": 62,
+      "popularity": 74
+    }
+  },
+  {
+    "id": "cinderella",
+    "name": "Cinderella",
+    "genre": "Glam Metal",
+    "pack_type": "glam_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 74,
+      "vocals": 80,
+      "drums": 68,
+      "heaviness": 50,
+      "atmosphere": 60,
+      "popularity": 65
+    }
+  },
+  {
+    "id": "dokken",
+    "name": "Dokken",
+    "genre": "Glam Metal",
+    "pack_type": "glam_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 78,
+      "vocals": 82,
+      "drums": 70,
+      "heaviness": 55,
+      "atmosphere": 65,
+      "popularity": 66
+    }
+  },
+  {
+    "id": "korpiklaani",
+    "name": "Korpiklaani",
+    "genre": "Folk Metal",
+    "pack_type": "folk_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 76,
+      "vocals": 72,
+      "drums": 78,
+      "heaviness": 75,
+      "atmosphere": 90,
+      "popularity": 74
+    }
+  },
+  {
+    "id": "ensiferum",
+    "name": "Ensiferum",
+    "genre": "Folk Metal",
+    "pack_type": "folk_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 80,
+      "vocals": 74,
+      "drums": 80,
+      "heaviness": 78,
+      "atmosphere": 92,
+      "popularity": 76
+    }
+  },
+  {
+    "id": "eluveitie",
+    "name": "Eluveitie",
+    "genre": "Folk Metal",
+    "pack_type": "folk_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 82,
+      "vocals": 76,
+      "drums": 80,
+      "heaviness": 76,
+      "atmosphere": 94,
+      "popularity": 78
+    }
+  },
+  {
+    "id": "turisas",
+    "name": "Turisas",
+    "genre": "Folk Metal",
+    "pack_type": "folk_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 75,
+      "vocals": 72,
+      "drums": 76,
+      "heaviness": 74,
+      "atmosphere": 88,
+      "popularity": 66
+    }
+  },
+  {
+    "id": "finntroll",
+    "name": "Finntroll",
+    "genre": "Folk Metal",
+    "pack_type": "folk_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 74,
+      "vocals": 65,
+      "drums": 78,
+      "heaviness": 82,
+      "atmosphere": 90,
+      "popularity": 68
+    }
+  },
+  {
+    "id": "alestorm",
+    "name": "Alestorm",
+    "genre": "Folk Metal",
+    "pack_type": "folk_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 72,
+      "vocals": 74,
+      "drums": 75,
+      "heaviness": 70,
+      "atmosphere": 85,
+      "popularity": 72
+    }
+  },
+  {
+    "id": "type_o_negative",
+    "name": "Type O Negative",
+    "genre": "Gothic Metal",
+    "pack_type": "gothic_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 74,
+      "vocals": 82,
+      "drums": 65,
+      "heaviness": 75,
+      "atmosphere": 95,
+      "popularity": 78
+    }
+  },
+  {
+    "id": "paradise_lost",
+    "name": "Paradise Lost",
+    "genre": "Gothic Metal",
+    "pack_type": "gothic_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 76,
+      "vocals": 78,
+      "drums": 68,
+      "heaviness": 78,
+      "atmosphere": 92,
+      "popularity": 74
+    }
+  },
+  {
+    "id": "lacuna_coil",
+    "name": "Lacuna Coil",
+    "genre": "Gothic Metal",
+    "pack_type": "gothic_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 70,
+      "vocals": 85,
+      "drums": 70,
+      "heaviness": 68,
+      "atmosphere": 88,
+      "popularity": 76
+    }
+  },
+  {
+    "id": "tristania",
+    "name": "Tristania",
+    "genre": "Gothic Metal",
+    "pack_type": "gothic_metal",
+    "rarity": "Common",
+    "attributes": {
+      "riffs": 68,
+      "vocals": 80,
+      "drums": 65,
+      "heaviness": 70,
+      "atmosphere": 90,
+      "popularity": 62
+    }
+  },
+  {
+    "id": "moonspell",
+    "name": "Moonspell",
+    "genre": "Gothic Metal",
+    "pack_type": "gothic_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 72,
+      "vocals": 78,
+      "drums": 68,
+      "heaviness": 74,
+      "atmosphere": 90,
+      "popularity": 68
+    }
+  },
+  {
+    "id": "agent_steel",
+    "name": "Agent Steel",
+    "genre": "Speed Metal",
+    "pack_type": "speed_metal",
+    "rarity": "Common",
+    "attributes": {
+      "riffs": 85,
+      "vocals": 75,
+      "drums": 88,
+      "heaviness": 78,
+      "atmosphere": 60,
+      "popularity": 58
+    }
+  },
+  {
+    "id": "exciter",
+    "name": "Exciter",
+    "genre": "Speed Metal",
+    "pack_type": "speed_metal",
+    "rarity": "Common",
+    "attributes": {
+      "riffs": 82,
+      "vocals": 70,
+      "drums": 90,
+      "heaviness": 76,
+      "atmosphere": 55,
+      "popularity": 55
+    }
+  },
+  {
+    "id": "jag_panzer",
+    "name": "Jag Panzer",
+    "genre": "Speed Metal",
+    "pack_type": "speed_metal",
+    "rarity": "Common",
+    "attributes": {
+      "riffs": 80,
+      "vocals": 78,
+      "drums": 85,
+      "heaviness": 74,
+      "atmosphere": 60,
+      "popularity": 52
+    }
+  },
+  {
+    "id": "riot",
+    "name": "Riot",
+    "genre": "Speed Metal",
+    "pack_type": "speed_metal",
+    "rarity": "Common",
+    "attributes": {
+      "riffs": 84,
+      "vocals": 76,
+      "drums": 86,
+      "heaviness": 75,
+      "atmosphere": 62,
+      "popularity": 60
+    }
+  },
+  {
+    "id": "savatage",
+    "name": "Savatage",
+    "genre": "Speed Metal",
+    "pack_type": "speed_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 85,
+      "vocals": 82,
+      "drums": 84,
+      "heaviness": 76,
+      "atmosphere": 70,
+      "popularity": 65
+    }
+  },
+  {
     "id": "at_the_gates",
     "name": "At the Gates",
     "genre": "Melodic Death Metal",
-    "pack_type": "death_metal",
+    "pack_type": "melodic_death_metal",
     "rarity": "Rare",
     "attributes": {
       "riffs": 90,
@@ -72,6 +1632,456 @@
       "heaviness": 91,
       "atmosphere": 86,
       "popularity": 76
+    }
+  },
+  {
+    "id": "in_flames",
+    "name": "In Flames",
+    "genre": "Melodic Death Metal",
+    "pack_type": "melodic_death_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 88,
+      "vocals": 70,
+      "drums": 84,
+      "heaviness": 82,
+      "atmosphere": 85,
+      "popularity": 84
+    }
+  },
+  {
+    "id": "dark_tranquillity",
+    "name": "Dark Tranquillity",
+    "genre": "Melodic Death Metal",
+    "pack_type": "melodic_death_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 86,
+      "vocals": 68,
+      "drums": 84,
+      "heaviness": 82,
+      "atmosphere": 88,
+      "popularity": 78
+    }
+  },
+  {
+    "id": "amon_amarth",
+    "name": "Amon Amarth",
+    "genre": "Melodic Death Metal",
+    "pack_type": "melodic_death_metal",
+    "rarity": "Epic",
+    "attributes": {
+      "riffs": 84,
+      "vocals": 65,
+      "drums": 85,
+      "heaviness": 88,
+      "atmosphere": 82,
+      "popularity": 86
+    }
+  },
+  {
+    "id": "arch_enemy",
+    "name": "Arch Enemy",
+    "genre": "Melodic Death Metal",
+    "pack_type": "melodic_death_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 85,
+      "vocals": 72,
+      "drums": 85,
+      "heaviness": 84,
+      "atmosphere": 80,
+      "popularity": 82
+    }
+  },
+  {
+    "id": "soilwork",
+    "name": "Soilwork",
+    "genre": "Melodic Death Metal",
+    "pack_type": "melodic_death_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 82,
+      "vocals": 70,
+      "drums": 82,
+      "heaviness": 80,
+      "atmosphere": 78,
+      "popularity": 72
+    }
+  },
+  {
+    "id": "insomnium",
+    "name": "Insomnium",
+    "genre": "Melodic Death Metal",
+    "pack_type": "melodic_death_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 80,
+      "vocals": 65,
+      "drums": 78,
+      "heaviness": 78,
+      "atmosphere": 90,
+      "popularity": 70
+    }
+  },
+  {
+    "id": "omnium_gatherum",
+    "name": "Omnium Gatherum",
+    "genre": "Melodic Death Metal",
+    "pack_type": "melodic_death_metal",
+    "rarity": "Common",
+    "attributes": {
+      "riffs": 78,
+      "vocals": 64,
+      "drums": 80,
+      "heaviness": 80,
+      "atmosphere": 82,
+      "popularity": 62
+    }
+  },
+  {
+    "id": "periphery",
+    "name": "Periphery",
+    "genre": "Djent",
+    "pack_type": "djent",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 92,
+      "vocals": 78,
+      "drums": 88,
+      "heaviness": 82,
+      "atmosphere": 80,
+      "popularity": 78
+    }
+  },
+  {
+    "id": "meshuggah",
+    "name": "Meshuggah",
+    "genre": "Djent",
+    "pack_type": "djent",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 94,
+      "vocals": 60,
+      "drums": 95,
+      "heaviness": 90,
+      "atmosphere": 85,
+      "popularity": 82
+    }
+  },
+  {
+    "id": "tesseract",
+    "name": "TesseracT",
+    "genre": "Djent",
+    "pack_type": "djent",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 88,
+      "vocals": 75,
+      "drums": 86,
+      "heaviness": 78,
+      "atmosphere": 88,
+      "popularity": 72
+    }
+  },
+  {
+    "id": "animals_as_leaders",
+    "name": "Animals as Leaders",
+    "genre": "Djent",
+    "pack_type": "djent",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 96,
+      "vocals": 30,
+      "drums": 90,
+      "heaviness": 75,
+      "atmosphere": 82,
+      "popularity": 76
+    }
+  },
+  {
+    "id": "monuments",
+    "name": "Monuments",
+    "genre": "Djent",
+    "pack_type": "djent",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 88,
+      "vocals": 70,
+      "drums": 84,
+      "heaviness": 80,
+      "atmosphere": 78,
+      "popularity": 65
+    }
+  },
+  {
+    "id": "vildhjarta",
+    "name": "Vildhjarta",
+    "genre": "Djent",
+    "pack_type": "djent",
+    "rarity": "Common",
+    "attributes": {
+      "riffs": 86,
+      "vocals": 65,
+      "drums": 82,
+      "heaviness": 84,
+      "atmosphere": 76,
+      "popularity": 60
+    }
+  },
+  {
+    "id": "necrophagist",
+    "name": "Necrophagist",
+    "genre": "Technical Death Metal",
+    "pack_type": "technical_death_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 97,
+      "vocals": 60,
+      "drums": 95,
+      "heaviness": 90,
+      "atmosphere": 65,
+      "popularity": 68
+    }
+  },
+  {
+    "id": "origin",
+    "name": "Origin",
+    "genre": "Technical Death Metal",
+    "pack_type": "technical_death_metal",
+    "rarity": "Common",
+    "attributes": {
+      "riffs": 95,
+      "vocals": 58,
+      "drums": 97,
+      "heaviness": 92,
+      "atmosphere": 55,
+      "popularity": 62
+    }
+  },
+  {
+    "id": "beyond_creation",
+    "name": "Beyond Creation",
+    "genre": "Technical Death Metal",
+    "pack_type": "technical_death_metal",
+    "rarity": "Common",
+    "attributes": {
+      "riffs": 94,
+      "vocals": 60,
+      "drums": 92,
+      "heaviness": 88,
+      "atmosphere": 70,
+      "popularity": 60
+    }
+  },
+  {
+    "id": "archspire",
+    "name": "Archspire",
+    "genre": "Technical Death Metal",
+    "pack_type": "technical_death_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 96,
+      "vocals": 62,
+      "drums": 98,
+      "heaviness": 90,
+      "atmosphere": 60,
+      "popularity": 66
+    }
+  },
+  {
+    "id": "obscura",
+    "name": "Obscura",
+    "genre": "Technical Death Metal",
+    "pack_type": "technical_death_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 93,
+      "vocals": 60,
+      "drums": 90,
+      "heaviness": 86,
+      "atmosphere": 75,
+      "popularity": 64
+    }
+  },
+  {
+    "id": "rammstein",
+    "name": "Rammstein",
+    "genre": "Industrial Metal",
+    "pack_type": "industrial_metal",
+    "rarity": "Legendary",
+    "attributes": {
+      "riffs": 82,
+      "vocals": 85,
+      "drums": 78,
+      "heaviness": 85,
+      "atmosphere": 92,
+      "popularity": 94
+    }
+  },
+  {
+    "id": "ministry",
+    "name": "Ministry",
+    "genre": "Industrial Metal",
+    "pack_type": "industrial_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 78,
+      "vocals": 70,
+      "drums": 76,
+      "heaviness": 88,
+      "atmosphere": 85,
+      "popularity": 78
+    }
+  },
+  {
+    "id": "fear_factory",
+    "name": "Fear Factory",
+    "genre": "Industrial Metal",
+    "pack_type": "industrial_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 80,
+      "vocals": 72,
+      "drums": 82,
+      "heaviness": 90,
+      "atmosphere": 82,
+      "popularity": 76
+    }
+  },
+  {
+    "id": "nine_inch_nails",
+    "name": "Nine Inch Nails",
+    "genre": "Industrial Metal",
+    "pack_type": "industrial_metal",
+    "rarity": "Epic",
+    "attributes": {
+      "riffs": 70,
+      "vocals": 82,
+      "drums": 72,
+      "heaviness": 78,
+      "atmosphere": 95,
+      "popularity": 88
+    }
+  },
+  {
+    "id": "godflesh",
+    "name": "Godflesh",
+    "genre": "Industrial Metal",
+    "pack_type": "industrial_metal",
+    "rarity": "Common",
+    "attributes": {
+      "riffs": 72,
+      "vocals": 60,
+      "drums": 68,
+      "heaviness": 90,
+      "atmosphere": 88,
+      "popularity": 62
+    }
+  },
+  {
+    "id": "static_x",
+    "name": "Static-X",
+    "genre": "Industrial Metal",
+    "pack_type": "industrial_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 76,
+      "vocals": 75,
+      "drums": 78,
+      "heaviness": 82,
+      "atmosphere": 70,
+      "popularity": 68
+    }
+  },
+  {
+    "id": "nightwish",
+    "name": "Nightwish",
+    "genre": "Symphonic Metal",
+    "pack_type": "symphonic_metal",
+    "rarity": "Epic",
+    "attributes": {
+      "riffs": 78,
+      "vocals": 92,
+      "drums": 80,
+      "heaviness": 70,
+      "atmosphere": 96,
+      "popularity": 88
+    }
+  },
+  {
+    "id": "epica",
+    "name": "Epica",
+    "genre": "Symphonic Metal",
+    "pack_type": "symphonic_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 80,
+      "vocals": 90,
+      "drums": 80,
+      "heaviness": 74,
+      "atmosphere": 94,
+      "popularity": 80
+    }
+  },
+  {
+    "id": "within_temptation",
+    "name": "Within Temptation",
+    "genre": "Symphonic Metal",
+    "pack_type": "symphonic_metal",
+    "rarity": "Rare",
+    "attributes": {
+      "riffs": 76,
+      "vocals": 88,
+      "drums": 78,
+      "heaviness": 68,
+      "atmosphere": 92,
+      "popularity": 82
+    }
+  },
+  {
+    "id": "kamelot",
+    "name": "Kamelot",
+    "genre": "Symphonic Metal",
+    "pack_type": "symphonic_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 80,
+      "vocals": 86,
+      "drums": 78,
+      "heaviness": 70,
+      "atmosphere": 88,
+      "popularity": 74
+    }
+  },
+  {
+    "id": "xandria",
+    "name": "Xandria",
+    "genre": "Symphonic Metal",
+    "pack_type": "symphonic_metal",
+    "rarity": "Common",
+    "attributes": {
+      "riffs": 74,
+      "vocals": 84,
+      "drums": 74,
+      "heaviness": 66,
+      "atmosphere": 88,
+      "popularity": 62
+    }
+  },
+  {
+    "id": "delain",
+    "name": "Delain",
+    "genre": "Symphonic Metal",
+    "pack_type": "symphonic_metal",
+    "rarity": "Uncommon",
+    "attributes": {
+      "riffs": 75,
+      "vocals": 85,
+      "drums": 75,
+      "heaviness": 68,
+      "atmosphere": 86,
+      "popularity": 66
     }
   }
 ]
