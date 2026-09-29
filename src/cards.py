@@ -1,5 +1,6 @@
-import json
+from collections import defaultdict
 from pathlib import Path
+import json
 
 RARITY_STARS = {
     "Common": "★☆☆☆☆",
@@ -15,6 +16,13 @@ DATA_PATH = Path(__file__).resolve().parent.parent / "data" / "bands.json"
 def load_bands(path: Path = DATA_PATH) -> list[dict]:
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
+
+
+def best_attribute(band: dict) -> tuple[str, int]:
+    """Return the (name, value) of the highest combat attribute, excluding popularity."""
+    combat_attrs = {k: v for k, v in band["attributes"].items() if k != "popularity"}
+    name = max(combat_attrs, key=combat_attrs.get)
+    return name.capitalize(), combat_attrs[name]
 
 
 def format_card(band: dict) -> str:
@@ -41,9 +49,20 @@ def format_card(band: dict) -> str:
 
 
 def format_band_list(bands: list[dict]) -> str:
-    """Format a list of bands in compact form, one line per band."""
-    lines = [f"{'ID':<26}{'Name':<20}{'Genre':<26}{'Rarity'}"]
+    """Group bands by genre (alphabetical), sorted by name within each genre."""
+    groups = defaultdict(list)
     for band in bands:
-        stars = RARITY_STARS.get(band["rarity"], "?????")
-        lines.append(f"{band['id']:<26}{band['name']:<20}{band['genre']:<26}{stars}")
-    return "\n".join(lines)
+        groups[band["genre"]].append(band)
+
+    lines = []
+    for genre in sorted(groups.keys()):
+        lines.append(f"\n{genre}")
+        lines.append("-" * len(genre))
+        for band in sorted(groups[genre], key=lambda b: b["name"]):
+            stars = RARITY_STARS.get(band["rarity"], "?????")
+            attr_name, attr_value = best_attribute(band)
+            lines.append(
+                f"  {band['id']:<24}{band['name']:<20}{stars:<10}best: {attr_name} {attr_value}"
+            )
+
+    return "\n".join(lines).strip("\n")

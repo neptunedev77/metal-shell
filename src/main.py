@@ -1,18 +1,64 @@
 import os
+import time
 
 from src.cards import load_bands, format_card, format_band_list
-from src.collection import load_player, save_player, get_owned_bands
-from src.packs import PACKS, open_pack
+from src.collection import (
+    load_player, save_player, get_owned_bands, add_coins, remove_band,
+    SELL_VALUES, regen_income, has_rarity, set_team, get_team_bands,
+)
+from src.packs import (
+    PACKS, open_pack, get_remaining_packs, get_seconds_until_next_pack,
+    format_countdown, claim_daily, can_claim_daily, get_pool_hint,
+)
 
 PROMPT = "$ "
 
 
+def get_fresh_player() -> dict:
+    """Load the player and apply any passive income earned since last check."""
+    player = load_player()
+    regen_income(player)
+    save_player(player)
+    return player
+
+
+def dramatic_pause(label: str) -> None:
+    print(f"\n{label}", end="", flush=True)
+    for _ in range(3):
+        time.sleep(0.3)
+        print(".", end="", flush=True)
+    print()
+
+
+def print_milestone_banner(text: str) -> None:
+    bar = "━" * len(text)
+    print(f"\n{bar}")
+    print(text)
+    print(f"{bar}\n")
+
+
+def announce_result(band: dict, is_new: bool, had_before: dict) -> None:
+    """Print the drawn band, with NEW tag and rarity milestone if applicable."""
+    tag = " ✨ NEW!" if is_new else ""
+    print(f"\n{band['name'].upper()} ({band['rarity']}){tag}")
+
+    rarity = band["rarity"]
+    if rarity in ("Legendary", "Epic") and not had_before.get(rarity, True):
+        print_milestone_banner(f"FIRST {rarity.upper()} OF YOUR COLLECTION!")
+    elif rarity == "Rare" and not had_before.get(rarity, True):
+        print("Nice pull! That's your first Rare in your collection.")
+
+
 def cmd_help(args: list[str]) -> None:
     print("Available commands:")
-    print("  $bands             - list all bands you own")
+    print("  $bands             - list all bands you own, grouped by genre")
     print("  $band <name>       - show the detailed card for a band you own")
-    print("  $packs             - list available pack types and their cost")
-    print("  $open <pack type>  - buy and open a pack")
+    print("  $packs             - list pack types, cost, and packs available")
+    print("  $open <pack type>  - buy and open a pack (1 band per pack)")
+    print("  $daily             - claim your free daily band")
+    print("  $sell <name>       - sell a band you own for coins")
+    print("  $team              - view your current battle team")
+    print("  $team <a>, <b>, <c> - set your battle team (3 bands you own)")
     print("  $coins             - show how many coins you have")
     print("  $clear             - clear the terminal")
     print("  $help              - show this help")
@@ -21,7 +67,7 @@ def cmd_help(args: list[str]) -> None:
 
 def cmd_bands(args: list[str]) -> None:
     catalog = load_bands()
-    player = load_player()
+    player = get_fresh_player()
     owned = get_owned_bands(player, catalog)
 
     if not owned:
@@ -37,7 +83,7 @@ def cmd_band(args: list[str]) -> None:
         return
 
     catalog = load_bands()
-    player = load_player()
+    player = get_fresh_player()
     owned = get_owned_bands(player, catalog)
 
     query = " ".join(args).lower()
@@ -52,7 +98,21 @@ def cmd_band(args: list[str]) -> None:
 
 
 def cmd_packs(args: list[str]) -> None:
-    print("Available packs:")
+    catalog = load_bands()
+    player = get_fresh_player()
+    remaining = get_remaining_packs(player)
+
+    print(f"Packs available: {remaining}/5")
+    if remaining < 5:
+        wait = format_countdown(get_seconds_until_next_pack(player))
+        print(f"Next pack in: {wait}")
+
+    hint = get_pool_hint(player, catalog)
+    if hint:
+        print(f"Pool hint: {hint} hasn't given you a Legendary yet...")
+
+    print()
+    print("Pack types:")
     print(f"  {'Type':<24}{'Name':<28}{'Cost':<10}")
     for pack_type, pack in PACKS.items():
         print(f"  {pack_type:<24}{pack['display_name']:<28}{pack['cost']} coins")
@@ -67,7 +127,18 @@ def cmd_open(args: list[str]) -> None:
         return
 
     pack_type = args[0].lower()
-    player = load_player()
+    catalog = load_bands()
+    player = get_fresh_player()
+
+    had_before = {
+        "Legendary": has_rarity(player, catalog, "Legendary"),
+        "Epic": has_rarity(player, catalog, "Epic"),
+        "Rare": has_rarity(player, catalog, "Rare"),
+    }
+
+    pack_name = PACKS.get(pack_type, {}).get("display_name", pack_type)
+    dramatic_pause(f"🥁 Opening {pack_name}...")
+
     result = open_pack(pack_type, player)
 
     if isinstance(result, str):
@@ -76,14 +147,113 @@ def cmd_open(args: list[str]) -> None:
 
     save_player(player)
 
-    print("You opened the pack and got:")
-    for band in result:
+    announce_result(result["band"], result["is_new"], had_before)
+    print(f"Coins: {player['coins']} | Packs: {get_remaining_packs(player)}/5")
+
+
+def cmd_daily(args: list[str]) -> None:
+    catalog = load_bands()
+    player = get_fresh_player()
+
+    if not can_claim_daily(player):
+        result = claim_daily(player)
+        print(result)
+        return
+
+    had_before = {
+        "Legendary": has_rarity(player, catalog, "Legendary"),
+        "Epic": has_rarity(player, catalog, "Epic"),
+        "Rare": has_rarity(player, catalog, "Rare"),
+    }
+
+    dramatic_pause("🎁 Claiming daily pack...")
+    result = claim_daily(player)
+
+    if isinstance(result, str):
+        print(result)
+        return
+
+    save_player(player)
+
+    announce_result(result["band"], result["is_new"], had_before)
+
+
+def cmd_sell(args: list[str]) -> None:
+    if not args:
+        print("Usage: $sell <name>")
+        return
+
+    catalog = load_bands()
+    player = get_fresh_player()
+    owned = get_owned_bands(player, catalog)
+
+    query = " ".join(args).lower()
+    match = next(
+        (b for b in owned if b["name"].lower() == query or b["id"].lower() == query),
+        None,
+    )
+    if match is None:
+        print(f"You don't own a band called '{' '.join(args)}'.")
+        return
+
+    value = SELL_VALUES.get(match["rarity"], 10)
+    remove_band(player, match["id"])
+    add_coins(player, value)
+    save_player(player)
+
+    print(f"Sold {match['name']} for {value} coins.")
+    print(f"Coins: {player['coins']}")
+
+
+def cmd_team(args: list[str]) -> None:
+    catalog = load_bands()
+    player = get_fresh_player()
+    owned = get_owned_bands(player, catalog)
+
+    if not args:
+        team = get_team_bands(player, catalog)
+        if not team:
+            print("You haven't set a team yet. Use: $team <band1>, <band2>, <band3>")
+            return
+        print("Current team:")
+        for band in team:
+            print(f"  - {band['name']} ({band['rarity']})")
+        return
+
+    raw = " ".join(args)
+    names = [n.strip().lower() for n in raw.split(",")]
+
+    if len(names) != 3:
+        print("You must choose exactly 3 bands, separated by commas.")
+        print("Example: $team gojira, metallica, slipknot")
+        return
+
+    if len(set(names)) != 3:
+        print("You can't pick the same band twice.")
+        return
+
+    owned_by_name = {b["name"].lower(): b for b in owned}
+    owned_by_id = {b["id"].lower(): b for b in owned}
+
+    chosen = []
+    for n in names:
+        band = owned_by_name.get(n) or owned_by_id.get(n)
+        if band is None:
+            print(f"You don't own a band called '{n}'.")
+            return
+        chosen.append(band)
+
+    set_team(player, [b["id"] for b in chosen])
+    save_player(player)
+
+    print("Team set:")
+    for band in chosen:
         print(f"  - {band['name']} ({band['rarity']})")
-    print(f"Coins remaining: {player['coins']}")
+    print("\nReady for battle. (Battle system coming soon.)")
 
 
 def cmd_coins(args: list[str]) -> None:
-    player = load_player()
+    player = get_fresh_player()
     print(f"Coins: {player['coins']}")
 
 
@@ -102,6 +272,9 @@ COMMANDS = {
     "band": cmd_band,
     "packs": cmd_packs,
     "open": cmd_open,
+    "daily": cmd_daily,
+    "sell": cmd_sell,
+    "team": cmd_team,
     "coins": cmd_coins,
     "clear": cmd_clear,
     "exit": cmd_exit,
@@ -109,7 +282,23 @@ COMMANDS = {
 
 
 def main():
-    print("Welcome to Metal Shell. Type $help to see the available commands.")
+    print("Welcome back, headbanger.")
+
+    player = load_player()
+    earned = regen_income(player)
+    save_player(player)
+    if earned:
+        print(f"(+{earned} coins earned while you were away)")
+
+    remaining_packs = get_remaining_packs(player)
+    if remaining_packs > 0:
+        print(f"You have {remaining_packs} pack(s) ready to open.")
+    if can_claim_daily(player):
+        print("Your daily pack is ready to claim.")
+
+    print(f"Coins: {player['coins']}")
+    print("Type $help to see the available commands.")
+
     while True:
         try:
             raw = input(PROMPT).strip()
