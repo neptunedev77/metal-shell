@@ -42,23 +42,36 @@ PACKS = {
 
 
 def _regen_packs(player: dict) -> None:
-    """Add any packs that should have regenerated since the last check."""
+    """Regenerate packs based on elapsed time, keeping the next regen timestamp valid."""
     available = player.get("packs_available", MAX_PACKS)
     next_regen = player.get("next_pack_regen", 0)
     now = time.time()
 
+    # Already full: schedule the next regeneration in the future.
     if available >= MAX_PACKS:
         player["packs_available"] = MAX_PACKS
-        if next_regen <= now:
-            player["next_pack_regen"] = now + REGEN_INTERVAL_SECONDS
+        player["next_pack_regen"] = now + REGEN_INTERVAL_SECONDS
         return
 
+    # No regeneration timestamp yet.
+    if next_regen <= 0:
+        player["packs_available"] = available
+        player["next_pack_regen"] = now + REGEN_INTERVAL_SECONDS
+        return
+
+    # Regenerate all packs that have accumulated.
     while now >= next_regen and available < MAX_PACKS:
         available += 1
         next_regen += REGEN_INTERVAL_SECONDS
 
     player["packs_available"] = available
-    player["next_pack_regen"] = next_regen
+
+    # If we reached the maximum, the old timestamp may still be in the past.
+    # Reset it so that the next consumed pack gets a fresh 12-minute timer.
+    if available >= MAX_PACKS:
+        player["next_pack_regen"] = now + REGEN_INTERVAL_SECONDS
+    else:
+        player["next_pack_regen"] = next_regen
 
 def get_remaining_packs(player: dict) -> int:
     _regen_packs(player)
@@ -89,7 +102,9 @@ def draw_band(pool: list[dict]) -> dict:
 def open_pack(pack_type: str, player: dict) -> dict | str:
     """
     Try to open a pack. Returns {'band': ..., 'is_new': bool} on success,
-    or an error message string on failure.
+    or an error message string on failure. Never draws a band the player
+    already owns — if the whole pool is already owned, the pack is blocked
+    (and no coins are spent).
     """
     if pack_type not in PACKS:
         return f"Unknown pack type: {pack_type}"
@@ -101,20 +116,26 @@ def open_pack(pack_type: str, player: dict) -> dict | str:
 
     pack = PACKS[pack_type]
     catalog = load_bands()
-    pool = get_pool(catalog, pack_type)
+    full_pool = get_pool(catalog, pack_type)
+
+    if not full_pool:
+        return f"No bands available for pack type '{pack_type}' yet."
+
+    owned_ids = set(player["collection"])
+    pool = [band for band in full_pool if band["id"] not in owned_ids]
 
     if not pool:
-        return f"No bands available for pack type '{pack_type}' yet."
+        genre_name = pack["display_name"].replace(" Pack", "")
+        return f"You already own every {genre_name} band!"
 
     if not spend_coins(player, pack["cost"]):
         return f"Not enough coins. {pack['display_name']} costs {pack['cost']} coins."
 
     drawn = draw_band(pool)
-    is_new = drawn["id"] not in player["collection"]
     add_band(player, drawn["id"])
     player["packs_available"] -= 1
 
-    return {"band": drawn, "is_new": is_new}
+    return {"band": drawn, "is_new": True}
 
 
 def can_claim_daily(player: dict) -> bool:
@@ -146,6 +167,7 @@ def claim_daily(player: dict) -> dict | str:
     player["last_daily_claim"] = time.time()
 
     return {"band": drawn, "is_new": is_new}
+
 
 def get_pool_hint(player: dict, catalog: list[dict]) -> str | None:
     """Suggest a pack type that hasn't given the player a Legendary yet."""

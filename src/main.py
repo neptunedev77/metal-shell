@@ -5,6 +5,7 @@ from src.cards import load_bands, format_card, format_band_list
 from src.collection import (
     load_player, save_player, get_owned_bands, add_coins, remove_band,
     SELL_VALUES, regen_income, has_rarity, set_team, get_team_bands,
+    sell_bands, get_bands_by_rarity,
 )
 from src.packs import (
     PACKS, open_pack, get_remaining_packs, get_seconds_until_next_pack,
@@ -51,18 +52,20 @@ def announce_result(band: dict, is_new: bool, had_before: dict) -> None:
 
 def cmd_help(args: list[str]) -> None:
     print("Available commands:")
-    print("  $bands             - list all bands you own, grouped by genre")
-    print("  $band <name>       - show the detailed card for a band you own")
-    print("  $packs             - list pack types, cost, and packs available")
-    print("  $open <pack type>  - buy and open a pack (1 band per pack)")
-    print("  $daily             - claim your free daily band")
-    print("  $sell <name>       - sell a band you own for coins")
-    print("  $team              - view your current battle team")
-    print("  $team <a>, <b>, <c> - set your battle team (3 bands you own)")
-    print("  $coins             - show how many coins you have")
-    print("  $clear             - clear the terminal")
-    print("  $help              - show this help")
-    print("  $exit              - exit the game")
+    print("  $bands                 - list all bands you own, grouped by genre")
+    print("  $band <name>           - show the detailed card for a band you own")
+    print("  $packs                 - list pack types, cost, and packs available")
+    print("  $open <pack type>      - buy and open a pack")
+    print("  $daily                 - claim your free daily band")
+    print("  $sell <rarity>         - sell all bands of a rarity")
+    print("  $sell band <name>      - sell a specific band")
+    print("  $sell all               - sell your entire collection")
+    print("  $team                  - view your current battle team")
+    print("  $team <a>, <b>, <c>    - set your battle team")
+    print("  $coins                 - show how many coins you have")
+    print("  $clear                 - clear the terminal")
+    print("  $help                  - show this help")
+    print("  $exit                  - exit the game")
 
 
 def cmd_bands(args: list[str]) -> None:
@@ -180,30 +183,98 @@ def cmd_daily(args: list[str]) -> None:
 
 def cmd_sell(args: list[str]) -> None:
     if not args:
-        print("Usage: $sell <name>")
+        print("Usage:")
+        print("  $sell <rarity>")
+        print("  $sell band <name>")
+        print("  $sell all")
         return
 
     catalog = load_bands()
     player = get_fresh_player()
     owned = get_owned_bands(player, catalog)
 
-    query = " ".join(args).lower()
-    match = next(
-        (b for b in owned if b["name"].lower() == query or b["id"].lower() == query),
-        None,
-    )
-    if match is None:
-        print(f"You don't own a band called '{' '.join(args)}'.")
+    # Sell entire collection
+    if args[0].lower() == "all":
+        if len(args) != 1:
+            print("Usage: $sell all")
+            return
+
+        if not owned:
+            print("Your collection is empty.")
+            return
+
+        sold, total = sell_bands(player, owned)
+
+        save_player(player)
+
+        print(f"Sold {sold} bands for {total} coins.")
+        print(f"Coins: {player['coins']}")
         return
 
-    value = SELL_VALUES.get(match["rarity"], 10)
-    remove_band(player, match["id"])
-    add_coins(player, value)
-    save_player(player)
+    # Sell a specific band
+    if args[0].lower() == "band":
+        if len(args) < 2:
+            print("Usage: $sell band <name>")
+            return
 
-    print(f"Sold {match['name']} for {value} coins.")
-    print(f"Coins: {player['coins']}")
+        query = " ".join(args[1:]).lower()
 
+        match = next(
+            (
+                b for b in owned
+                if b["name"].lower() == query
+                or b["id"].lower() == query
+            ),
+            None,
+        )
+
+        if match is None:
+            print(f"You don't own a band called '{' '.join(args[1:])}'.")
+            return
+
+        value = SELL_VALUES.get(match["rarity"], 10)
+
+        remove_band(player, match["id"])
+        add_coins(player, value)
+        save_player(player)
+
+        print(f"Sold {match['name']} for {value} coins.")
+        print(f"Coins: {player['coins']}")
+        return
+
+    # Sell all bands of a specific rarity
+    rarities = {
+        "common": "Common",
+        "uncommon": "Uncommon",
+        "rare": "Rare",
+        "epic": "Epic",
+        "legendary": "Legendary",
+    }
+
+    rarity_key = args[0].lower()
+
+    if rarity_key in rarities:
+        if len(args) != 1:
+            print(f"Usage: $sell {rarity_key}")
+            return
+
+        rarity = rarities[rarity_key]
+        bands = get_bands_by_rarity(player, catalog, rarity)
+
+        if not bands:
+            print(f"You don't own any {rarity} bands.")
+            return
+
+        sold, total = sell_bands(player, bands)
+
+        save_player(player)
+
+        print(f"Sold {sold} {rarity} band(s) for {total} coins.")
+        print(f"Coins: {player['coins']}")
+        return
+
+    print(f"Unknown sell option: {' '.join(args)}")
+    print("Use: $sell <rarity>, $sell band <name>, or $sell all")
 
 def cmd_team(args: list[str]) -> None:
     catalog = load_bands()

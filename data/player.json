@@ -1,11 +1,13 @@
 {
-  "coins": 170,
-  "collection": [
-    "limp_bizkit"
+  "coins": 2220,
+  "collection": [],
+  "team": [
+    "dio",
+    "architects",
+    "killswitch_engage"
   ],
-  "team": [],
-  "packs_available": 5,
-  "next_pack_regen": 1790723411.359538,
+  "packs_available": 0,
+  "next_pack_regen": 1790806451.5778985,
   "last_daily_claim": 1790721950.5410633,
-  "next_income_tick": 1790723139.9251537
+  "next_income_tick": 1790806100.0608613
 }

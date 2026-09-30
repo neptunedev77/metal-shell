@@ -43,6 +43,36 @@ def remove_band(player: dict, band_id: str) -> bool:
         return True
     return False
 
+def sell_bands(player: dict, bands: list[dict]) -> tuple[int, int]:
+    """
+    Sell multiple bands.
+
+    Returns:
+        (number_sold, total_coins_earned)
+    """
+    sold = 0
+    total_earned = 0
+
+    for band in bands:
+        value = SELL_VALUES.get(band["rarity"], 10)
+
+        if remove_band(player, band["id"]):
+            add_coins(player, value)
+            sold += 1
+            total_earned += value
+
+    return sold, total_earned
+
+
+def get_bands_by_rarity(
+    player: dict,
+    catalog: list[dict],
+    rarity: str,
+) -> list[dict]:
+    """Return all owned bands matching the given rarity."""
+    owned = get_owned_bands(player, catalog)
+    return [band for band in owned if band["rarity"].lower() == rarity.lower()]
+
 
 def add_coins(player: dict, amount: int) -> None:
     player["coins"] += amount
