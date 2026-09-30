@@ -57,9 +57,10 @@ def cmd_help(args: list[str]) -> None:
     print("  $packs                 - list pack types, cost, and packs available")
     print("  $open <pack type>      - buy and open a pack")
     print("  $daily                 - claim your free daily band")
+    print("  $progress              - show collection progress")
     print("  $sell <rarity>         - sell all bands of a rarity")
     print("  $sell band <name>      - sell a specific band")
-    print("  $sell all               - sell your entire collection")
+    print("  $sell all              - sell your entire collection")
     print("  $team                  - view your current battle team")
     print("  $team <a>, <b>, <c>    - set your battle team")
     print("  $coins                 - show how many coins you have")
@@ -150,9 +151,17 @@ def cmd_open(args: list[str]) -> None:
 
     save_player(player)
 
-    announce_result(result["band"], result["is_new"], had_before)
-    print(f"Coins: {player['coins']} | Packs: {get_remaining_packs(player)}/5")
+    band = result["band"]
+    is_new = result["is_new"]
+    duplicate_value = result["duplicate_value"]
 
+    if is_new:
+        announce_result(band, True, had_before)
+    else:
+        print(f"\n{band['name'].upper()} ({band['rarity']}) — DUPLICATE")
+        print(f"Sold for {duplicate_value} coins.")
+
+    print(f"Coins: {player['coins']} | Packs: {get_remaining_packs(player)}/5")
 
 def cmd_daily(args: list[str]) -> None:
     catalog = load_bands()
@@ -178,7 +187,16 @@ def cmd_daily(args: list[str]) -> None:
 
     save_player(player)
 
-    announce_result(result["band"], result["is_new"], had_before)
+    if result["is_new"]:
+        announce_result(result["band"], True, had_before)
+    else:
+        print(
+            f"\n{result['band']['name'].upper()} "
+            f"({result['band']['rarity']}) — DUPLICATE"
+        )
+        print(f"Sold for {result['duplicate_value']} coins.")
+
+    print(f"Coins: {player['coins']}")
 
 
 def cmd_sell(args: list[str]) -> None:
@@ -276,6 +294,62 @@ def cmd_sell(args: list[str]) -> None:
     print(f"Unknown sell option: {' '.join(args)}")
     print("Use: $sell <rarity>, $sell band <name>, or $sell all")
 
+def cmd_progress(args: list[str]) -> None:
+    catalog = load_bands()
+    player = get_fresh_player()
+
+    owned_ids = set(player["collection"])
+
+    total_bands = len(catalog)
+    collected = sum(1 for band in catalog if band["id"] in owned_ids)
+
+    print("\nCOLLECTION")
+    print(f"  {collected} / {total_bands} bands")
+
+    percentage = (collected / total_bands * 100) if total_bands else 0
+    print(f"  Overall: {percentage:.0f}%")
+
+    # Rarity progress
+    rarities = ["Common", "Uncommon", "Rare", "Epic", "Legendary"]
+
+    print("\nBY RARITY")
+
+    for rarity in rarities:
+        total = sum(
+            1 for band in catalog
+            if band["rarity"] == rarity
+        )
+
+        owned = sum(
+            1 for band in catalog
+            if band["rarity"] == rarity
+            and band["id"] in owned_ids
+        )
+
+        print(f"  {rarity:<11} {owned:>2} / {total}")
+
+    # Pack progress
+    print("\nBY PACK")
+
+    for pack_type, pack in PACKS.items():
+        pack_bands = [
+            band for band in catalog
+            if band["pack_type"] == pack_type
+        ]
+
+        if not pack_bands:
+            continue
+
+        total = len(pack_bands)
+        owned = sum(
+            1 for band in pack_bands
+            if band["id"] in owned_ids
+        )
+
+        print(f"  {pack['display_name']:<28} {owned:>2} / {total}")
+
+    print()
+
 def cmd_team(args: list[str]) -> None:
     catalog = load_bands()
     player = get_fresh_player()
@@ -345,6 +419,7 @@ COMMANDS = {
     "open": cmd_open,
     "daily": cmd_daily,
     "sell": cmd_sell,
+    "progress": cmd_progress,
     "team": cmd_team,
     "coins": cmd_coins,
     "clear": cmd_clear,
@@ -362,8 +437,8 @@ def main():
         print(f"(+{earned} coins earned while you were away)")
 
     remaining_packs = get_remaining_packs(player)
-    if remaining_packs > 0:
-        print(f"You have {remaining_packs} pack(s) ready to open.")
+    print(f"Packs ready to open: {remaining_packs}/5")
+
     if can_claim_daily(player):
         print("Your daily pack is ready to claim.")
 

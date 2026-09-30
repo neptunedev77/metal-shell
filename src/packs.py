@@ -2,7 +2,7 @@ import random
 import time
 
 from src.cards import load_bands
-from src.collection import spend_coins, add_band
+from src.collection import spend_coins, add_band, add_coins, SELL_VALUES
 
 RARITY_WEIGHTS = {
     "Common": 50,
@@ -101,42 +101,55 @@ def draw_band(pool: list[dict]) -> dict:
 
 def open_pack(pack_type: str, player: dict) -> dict | str:
     """
-    Try to open a pack. Returns {'band': ..., 'is_new': bool} on success,
-    or an error message string on failure. Never draws a band the player
-    already owns — if the whole pool is already owned, the pack is blocked
-    (and no coins are spent).
+    Try to open a pack.
+
+    Returns:
+        {
+            'band': ...,
+            'is_new': bool,
+            'duplicate_value': int,
+        }
+        on success, or an error message string on failure.
+
+    Duplicate bands are automatically sold for their rarity value.
     """
     if pack_type not in PACKS:
         return f"Unknown pack type: {pack_type}"
 
     _regen_packs(player)
+
     if player["packs_available"] <= 0:
         wait = format_countdown(get_seconds_until_next_pack(player))
         return f"No packs available right now. Next one in {wait}."
 
     pack = PACKS[pack_type]
     catalog = load_bands()
-    full_pool = get_pool(catalog, pack_type)
-
-    if not full_pool:
-        return f"No bands available for pack type '{pack_type}' yet."
-
-    owned_ids = set(player["collection"])
-    pool = [band for band in full_pool if band["id"] not in owned_ids]
+    pool = get_pool(catalog, pack_type)
 
     if not pool:
-        genre_name = pack["display_name"].replace(" Pack", "")
-        return f"You already own every {genre_name} band!"
+        return f"No bands available for pack type '{pack_type}' yet."
 
     if not spend_coins(player, pack["cost"]):
         return f"Not enough coins. {pack['display_name']} costs {pack['cost']} coins."
 
     drawn = draw_band(pool)
-    add_band(player, drawn["id"])
+    is_new = drawn["id"] not in player["collection"]
+
+    duplicate_value = 0
+
+    if is_new:
+        add_band(player, drawn["id"])
+    else:
+        duplicate_value = SELL_VALUES.get(drawn["rarity"], 10)
+        add_coins(player, duplicate_value)
+
     player["packs_available"] -= 1
 
-    return {"band": drawn, "is_new": True}
-
+    return {
+        "band": drawn,
+        "is_new": is_new,
+        "duplicate_value": duplicate_value,
+    }
 
 def can_claim_daily(player: dict) -> bool:
     last = player.get("last_daily_claim", 0)
@@ -152,7 +165,9 @@ def get_seconds_until_daily(player: dict) -> int:
 def claim_daily(player: dict) -> dict | str:
     """
     Claim the free daily band, from any genre in the catalog.
-    Returns {'band': ..., 'is_new': bool} on success, or an error message.
+
+    New bands are added to the collection.
+    Duplicate bands are automatically sold for their rarity value.
     """
     if not can_claim_daily(player):
         wait = get_seconds_until_daily(player)
@@ -162,12 +177,23 @@ def claim_daily(player: dict) -> dict | str:
 
     catalog = load_bands()
     drawn = draw_band(catalog)
+
     is_new = drawn["id"] not in player["collection"]
-    add_band(player, drawn["id"])
+    duplicate_value = 0
+
+    if is_new:
+        add_band(player, drawn["id"])
+    else:
+        duplicate_value = SELL_VALUES.get(drawn["rarity"], 10)
+        add_coins(player, duplicate_value)
+
     player["last_daily_claim"] = time.time()
 
-    return {"band": drawn, "is_new": is_new}
-
+    return {
+        "band": drawn,
+        "is_new": is_new,
+        "duplicate_value": duplicate_value,
+    }
 
 def get_pool_hint(player: dict, catalog: list[dict]) -> str | None:
     """Suggest a pack type that hasn't given the player a Legendary yet."""
