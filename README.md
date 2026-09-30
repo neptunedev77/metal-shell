@@ -33,7 +33,7 @@ Each band has six attributes used throughout the game:
 ║ Heaviness      97              ║
 ║ Atmosphere     88              ║
 ╠════════════════════════════════╣
-║ Rarity         ★★★★☆           ║
+║ Rarity         ★★★★☆         ║
 ╚════════════════════════════════╝
 ```
 
