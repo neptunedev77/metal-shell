@@ -1,4 +1,4 @@
-# 🤘 Metal Shell
+# metal-shell
 
 A terminal-based collectible strategy game centered around metal bands.
 
