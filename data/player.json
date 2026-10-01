@@ -1,18 +1,10 @@
 {
-  "coins": 3140,
-  "collection": [
-    "bullet_for_my_valentine",
-    "architects",
-    "disturbed"
-  ],
-  "team": [
-    "architects",
-    "bullet_for_my_valentine",
-    "disturbed"
-  ],
+  "coins": 3340,
+  "collection": [],
+  "team": [],
   "packs_available": 2,
-  "next_pack_regen": 1790892387.2043667,
+  "next_pack_regen": 1790893827.2043667,
   "last_daily_claim": 1790864818.5853672,
-  "next_income_tick": 1790892316.5241446,
+  "next_income_tick": 1790893516.5241446,
   "last_drum_roll": 1790865170.238258
 }

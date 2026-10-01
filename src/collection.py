@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 import time
 
+
 PLAYER_PATH = Path(__file__).resolve().parent.parent / "data" / "player.json"
 
 SELL_VALUES = {
@@ -42,6 +43,30 @@ def remove_band(player: dict, band_id: str) -> bool:
         player["collection"].remove(band_id)
         return True
     return False
+
+def add_band_to_team(player: dict, band_id: str) -> str | None:
+    """
+    Add a band to the team if there's room. Returns None on success,
+    or an error message string on failure.
+    """
+    team = player.get("team", [])
+    if band_id in team:
+        return "That band is already in your team."
+    if len(team) >= 3:
+        return "Your team is full (3/3). Remove a band first with $team remove <name>."
+    team.append(band_id)
+    player["team"] = team
+    return None
+
+
+def remove_band_from_team(player: dict, band_id: str) -> bool:
+    """Remove a single band from the team. Returns True if it was there."""
+    team = player.get("team", [])
+    if band_id not in team:
+        return False
+    team.remove(band_id)
+    player["team"] = team
+    return True
 
 def sell_bands(player: dict, bands: list[dict]) -> tuple[int, int]:
     """
@@ -91,9 +116,18 @@ def set_team(player: dict, band_ids: list[str]) -> None:
 
 
 def get_team_bands(player: dict, catalog: list[dict]) -> list[dict]:
-    """Return full band data for the bands currently in the player's team, in order."""
+    """Return full band data for bands currently in the team AND still owned."""
+    owned_ids = set(player["collection"])
     catalog_by_id = {band["id"]: band for band in catalog}
-    return [catalog_by_id[bid] for bid in player.get("team", []) if bid in catalog_by_id]
+    return [
+        catalog_by_id[bid] for bid in player.get("team", [])
+        if bid in catalog_by_id and bid in owned_ids
+    ]
+
+def remove_bands_from_team(player: dict, band_ids) -> None:
+    """Remove any of these band ids from the current team, if present."""
+    band_ids = set(band_ids)
+    player["team"] = [bid for bid in player.get("team", []) if bid not in band_ids]
 
 def regen_income(player: dict) -> int:
     """

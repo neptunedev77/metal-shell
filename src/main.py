@@ -5,7 +5,8 @@ from src.cards import load_bands, format_card, format_band_list
 from src.collection import (
     load_player, save_player, get_owned_bands, add_coins, remove_band,
     SELL_VALUES, regen_income, has_rarity, set_team, get_team_bands,
-    sell_bands, get_bands_by_rarity,
+    sell_bands, get_bands_by_rarity, remove_bands_from_team,
+    add_band_to_team, remove_band_from_team,
 )
 from src.packs import (
     PACKS, open_pack, get_remaining_packs, get_seconds_until_next_pack,
@@ -66,8 +67,8 @@ def cmd_help(args: list[str]) -> None:
     print("  $sell <rarity>         - sell all bands of a rarity")
     print("  $sell band <name>      - sell a specific band")
     print("  $sell all              - sell your entire collection")
-    print("  $team                  - view your current battle team")
-    print("  $team <a>, <b>, <c>    - set your battle team")
+    print("  $team                  - view/add/remove bands (add <name>, remove <name>)")
+    print("  $team <a>, <b>, <c>    - replace your whole team")
     print("  $coins                 - show how many coins you have")
     print("  $drum                  - play Drum Roll for quick coins")
     print("  $clear                 - clear the terminal")
@@ -204,6 +205,23 @@ def cmd_daily(args: list[str]) -> None:
 
     print(f"Coins: {player['coins']}")
 
+def check_team_conflict(player: dict, bands_to_sell: list[dict]) -> bool:
+    """
+    If any band about to be sold is in the current team, warn and ask for
+    confirmation. Returns True if the sale should proceed.
+    """
+    team_ids = set(player.get("team", []))
+    conflicts = [b for b in bands_to_sell if b["id"] in team_ids]
+    if not conflicts:
+        return True
+
+    names = ", ".join(b["name"] for b in conflicts)
+    verb = "is" if len(conflicts) == 1 else "are"
+    print(f"\nWarning: {names} {verb} currently in your battle team.")
+    print("Selling will remove them from your team.")
+    confirm = input("Proceed? (y/n): ").strip().lower()
+    return confirm == "y"
+
 
 def cmd_sell(args: list[str]) -> None:
     if not args:
@@ -227,7 +245,12 @@ def cmd_sell(args: list[str]) -> None:
             print("Your collection is empty.")
             return
 
+        if not check_team_conflict(player, owned):
+            print("Sale cancelled.")
+            return
+
         sold, total = sell_bands(player, owned)
+        remove_bands_from_team(player, [b["id"] for b in owned])
 
         save_player(player)
 
@@ -256,9 +279,14 @@ def cmd_sell(args: list[str]) -> None:
             print(f"You don't own a band called '{' '.join(args[1:])}'.")
             return
 
+        if not check_team_conflict(player, [match]):
+            print("Sale cancelled.")
+            return
+
         value = SELL_VALUES.get(match["rarity"], 10)
 
         remove_band(player, match["id"])
+        remove_bands_from_team(player, [match["id"]])
         add_coins(player, value)
         save_player(player)
 
@@ -289,7 +317,12 @@ def cmd_sell(args: list[str]) -> None:
             print(f"You don't own any {rarity} bands.")
             return
 
+        if not check_team_conflict(player, bands):
+            print("Sale cancelled.")
+            return
+
         sold, total = sell_bands(player, bands)
+        remove_bands_from_team(player, [b["id"] for b in bands])
 
         save_player(player)
 
@@ -361,6 +394,46 @@ def cmd_team(args: list[str]) -> None:
     player = get_fresh_player()
     owned = get_owned_bands(player, catalog)
 
+    if args and args[0].lower() == "add":
+        if len(args) < 2:
+            print("Usage: $team add <name>")
+            return
+        query = " ".join(args[1:]).lower()
+        match = next(
+            (b for b in owned if b["name"].lower() == query or b["id"].lower() == query),
+            None,
+        )
+        if match is None:
+            print(f"You don't own a band called '{' '.join(args[1:])}'.")
+            return
+        error = add_band_to_team(player, match["id"])
+        if error:
+            print(error)
+            return
+        save_player(player)
+        print(f"Added {match['name']} to your team.")
+        return
+
+    if args and args[0].lower() == "remove":
+        if len(args) < 2:
+            print("Usage: $team remove <name>")
+            return
+        query = " ".join(args[1:]).lower()
+        catalog_by_id = {b["id"]: b for b in catalog}
+        team_ids = player.get("team", [])
+        match_id = next(
+            (bid for bid in team_ids if catalog_by_id.get(bid, {}).get("name", "").lower() == query
+             or bid.lower() == query),
+            None,
+        )
+        if match_id is None:
+            print(f"'{' '.join(args[1:])}' is not in your team.")
+            return
+        remove_band_from_team(player, match_id)
+        save_player(player)
+        print(f"Removed {catalog_by_id[match_id]['name']} from your team.")
+        return
+
     if not args:
         team = get_team_bands(player, catalog)
         if not team:
@@ -400,7 +473,7 @@ def cmd_team(args: list[str]) -> None:
     print("Team set:")
     for band in chosen:
         print(f"  - {band['name']} ({band['rarity']})")
-    print("\nReady for battle. (Battle system coming soon.)")
+    print("\nReady for battle. Use $battle to fight!")
 
 def cmd_drum(args: list[str]) -> None:
     player = get_fresh_player()
@@ -461,7 +534,6 @@ def cmd_battle(args: list[str]) -> None:
         attribute = draw_attribute()
         print(f"Attribute: {attribute.upper()}")
 
-        alive_player = alive_bands(player_team)
         alive_bot = alive_bands(bot_team)
 
         if round_number > 1:
