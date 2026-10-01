@@ -11,6 +11,7 @@ from src.packs import (
     PACKS, open_pack, get_remaining_packs, get_seconds_until_next_pack,
     format_countdown, claim_daily, can_claim_daily, get_pool_hint,
 )
+from src.minigames import play_drum_roll
 
 PROMPT = "$ "
 
@@ -64,6 +65,7 @@ def cmd_help(args: list[str]) -> None:
     print("  $team                  - view your current battle team")
     print("  $team <a>, <b>, <c>    - set your battle team")
     print("  $coins                 - show how many coins you have")
+    print("  $drum                  - play Drum Roll for quick coins")
     print("  $clear                 - clear the terminal")
     print("  $help                  - show this help")
     print("  $exit                  - exit the game")
@@ -396,6 +398,41 @@ def cmd_team(args: list[str]) -> None:
         print(f"  - {band['name']} ({band['rarity']})")
     print("\nReady for battle. (Battle system coming soon.)")
 
+def cmd_drum(args: list[str]) -> None:
+    player = get_fresh_player()
+
+    result = play_drum_roll(player)
+
+    if isinstance(result, str):
+        print(result)
+        return
+
+    reward = result["reward"]
+    outcome = result["result"]
+
+    add_coins(player, reward)
+    save_player(player)
+
+    print()
+
+    if outcome == "perfect":
+        print("🔥 PERFECT!")
+        print(f"+{reward} coins")
+
+    elif outcome == "great":
+        print("🥁 GREAT HIT!")
+        print(f"+{reward} coins")
+
+    elif outcome == "good":
+        print("🤘 GOOD HIT!")
+        print(f"+{reward} coins")
+
+    else:
+        print("💀 MISSED!")
+        print("+0 coins")
+
+    print(f"Coins: {player['coins']}")
+
 
 def cmd_coins(args: list[str]) -> None:
     player = get_fresh_player()
@@ -422,6 +459,7 @@ COMMANDS = {
     "progress": cmd_progress,
     "team": cmd_team,
     "coins": cmd_coins,
+    "drum": cmd_drum,
     "clear": cmd_clear,
     "exit": cmd_exit,
 }

@@ -1,12 +1,6 @@
 {
-  "coins": 1010,
-  "collection": [
-    "job_for_a_cowboy",
-    "lorna_shore",
-    "suicide_silence",
-    "thy_art_is_murder",
-    "carnifex"
-  ],
+  "coins": 3090,
+  "collection": [],
   "team": [
     "dio",
     "architects",
@@ -15,5 +9,6 @@
   "packs_available": 0,
   "next_pack_regen": 1790808322.7692597,
   "last_daily_claim": 1790721950.5410633,
-  "next_income_tick": 1790807720.0608613
+  "next_income_tick": 1790862092.8876224,
+  "last_drum_roll": 1790862038.141004
 }
