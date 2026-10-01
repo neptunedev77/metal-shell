@@ -1,14 +1,18 @@
 {
-  "coins": 3090,
-  "collection": [],
-  "team": [
-    "dio",
+  "coins": 3140,
+  "collection": [
+    "bullet_for_my_valentine",
     "architects",
-    "killswitch_engage"
+    "disturbed"
   ],
-  "packs_available": 0,
-  "next_pack_regen": 1790808322.7692597,
-  "last_daily_claim": 1790721950.5410633,
-  "next_income_tick": 1790862092.8876224,
-  "last_drum_roll": 1790862038.141004
+  "team": [
+    "architects",
+    "bullet_for_my_valentine",
+    "disturbed"
+  ],
+  "packs_available": 2,
+  "next_pack_regen": 1790892387.2043667,
+  "last_daily_claim": 1790864818.5853672,
+  "next_income_tick": 1790892316.5241446,
+  "last_drum_roll": 1790865170.238258
 }
