@@ -1,3 +1,5 @@
+import time
+
 from src.cards import load_bands
 from src.collection import save_player, add_coins, get_team_bands
 from src.battle import (
@@ -5,7 +7,33 @@ from src.battle import (
 )
 from src.bot import generate_bot_team, choose_band as bot_choose_band
 from src.config import DIFFICULTIES, DEFAULT_DIFFICULTY
-from src.commands.common import get_fresh_player
+from src.commands.common import get_fresh_player, prompt
+
+REVEAL_DELAY = 0.5   # seconds of suspense before the BOT's pick is shown
+RESULT_COLUMN = 48   # where the WIN/LOSS verdict starts
+
+
+def _names(team: list[dict]) -> str:
+    return " · ".join(b["band"]["name"] for b in team)
+
+
+def _print_round(number: int, attribute: str, player_team: list[dict], bot_team: list[dict]) -> dict:
+    """Print the round header and the player's 3 bands (fixed slots). Returns {key: band}."""
+    title = f"ROUND {number} · {attribute.upper()}"
+    if number > 1:
+        title = title.ljust(26) + "BOT: " + _names(alive_bands(bot_team))
+    print(f"\n{title}")
+
+    width = max(len(b["band"]["name"]) for b in player_team) + 2
+    options = {}
+    for idx, bb in enumerate(player_team, start=1):
+        name = bb["band"]["name"]
+        if bb["alive"]:
+            print(f" {idx}  {name:<{width}}{bb['band']['attributes'][attribute]}")
+            options[str(idx)] = bb
+        else:
+            print(f" {idx}  {name:<{width}}out")
+    return options
 
 
 def cmd_battle(args: list[str]) -> None:
@@ -27,73 +55,63 @@ def cmd_battle(args: list[str]) -> None:
         return
 
     player_team = create_battle_team(team_bands)
-    bot_team_bands = generate_bot_team(
-        catalog, settings["team_candidates"], settings["team_pick"]
+    bot_team = create_battle_team(
+        generate_bot_team(catalog, settings["team_candidates"], settings["team_pick"])
     )
-    bot_team = create_battle_team(bot_team_bands)
 
-    print(f"\nDIFFICULTY: {difficulty.upper()} (win reward: {reward} coins)")
-    print("\nYOUR TEAM          BOT TEAM")
-    for p, b in zip(player_team, bot_team):
-        print(f"  {p['band']['name']:<18} {b['band']['name']}")
-    input("\nPress Enter to begin...")
+    print(f"\n{difficulty.upper()} · win +{reward}")
+    print(_names(player_team))
+    print("  vs")
+    print(_names(bot_team))
 
     round_number = 1
-    while not is_team_defeated(player_team) and not is_team_defeated(bot_team):
-        print(f"\n── ROUND {round_number} ──")
+    player_wins = bot_wins = 0
+
+    while True:
         attribute = draw_attribute()
-        print(f"Attribute: {attribute.upper()}")
+        options = _print_round(round_number, attribute, player_team, bot_team)
 
-        alive_bot = alive_bands(bot_team)
-
-        if round_number > 1:
-            remaining_names = ", ".join(b["band"]["name"] for b in alive_bot)
-            print(f"(BOT remaining: {remaining_names})")
-
-        print()
-        options = {}
-        for bb in player_team:
-            if not bb["alive"]:
-                continue
-            idx = player_team.index(bb) + 1
-            value = bb["band"]["attributes"][attribute]
-            print(f"{idx}. {bb['band']['name']:<20} {value}")
-            options[str(idx)] = bb
-
-        choice = None
+        choice = prompt("> ").strip()
         while choice not in options:
-            choice = input(f"\nChoose your band ({'/'.join(options.keys())}): ").strip()
+            keys = list(options)
+            valid = keys[0] if len(keys) == 1 else ", ".join(keys[:-1]) + " or " + keys[-1]
+            print(f"   Choose {valid}")
+            choice = prompt("> ").strip()
 
         player_pick = options[choice]
-        bot_pick = bot_choose_band(alive_bot, attribute, settings["smart_chance"])
+        bot_pick = bot_choose_band(alive_bands(bot_team), attribute, settings["smart_chance"])
 
-        print(f"\nYou chose {player_pick['band']['name']} ({player_pick['band']['attributes'][attribute]})")
-        print(f"BOT chose {bot_pick['band']['name']} ({bot_pick['band']['attributes'][attribute]})")
-        print()
+        p_name = player_pick["band"]["name"]
+        b_name = bot_pick["band"]["name"]
+        p_value = player_pick["band"]["attributes"][attribute]
+        b_value = bot_pick["band"]["attributes"][attribute]
+
+        # Short suspense: show our pick, then reveal the BOT's on the same line.
+        print(f"   {p_name} {p_value}  vs  ", end="", flush=True)
+        time.sleep(REVEAL_DELAY)
 
         outcome = resolve_round(player_pick, bot_pick, attribute)
-        loser = outcome["loser"]
-        winner_name = (
-            player_pick["band"]["name"] if outcome["winner_is_player"]
-            else bot_pick["band"]["name"]
-        )
+        tie = " (tie)" if p_value == b_value else ""
+        if outcome["winner_is_player"]:
+            player_wins += 1
+            verdict = f"✔ WIN{tie}"
+        else:
+            bot_wins += 1
+            verdict = f"✘ LOSS{tie} · {p_name} is out"
 
-        print(f"{winner_name} wins! {loser['band']['name']} is ELIMINATED.")
+        revealed = f"{b_value} {b_name}"
+        left_length = len(f"   {p_name} {p_value}  vs  ") + len(revealed)
+        print(revealed + " " * max(2, RESULT_COLUMN - left_length) + verdict)
 
         round_number += 1
-
         if is_team_defeated(player_team) or is_team_defeated(bot_team):
             break
 
-        input("\nPress Enter to continue...")
-
+    score = f"{player_wins}–{bot_wins}"
     print()
     if is_team_defeated(bot_team):
-        print("YOU WIN!")
         add_coins(player, reward)
         save_player(player)
-        print(f"\n+{reward} coins")
-        print(f"Coins: {player['coins']}")
+        print(f"YOU WIN  {score}  ·  +{reward} coins  ·  Coins: {player['coins']}")
     else:
-        print("YOU LOSE!")
-        print("Better luck next time.")
+        print(f"YOU LOSE  {score}")

@@ -37,7 +37,7 @@ def format_card(band: dict) -> str:
             continue
         label = attr_name.capitalize()
         row = f" {label:<14}{value:<15}"
-        lines.append(f"║{row[:width]}║")
+        lines.append(f"║{row[:width].ljust(width)}║")
 
     lines.append("╠" + "═" * width + "╣")
     stars = RARITY_STARS.get(band["rarity"], "?????")
@@ -54,6 +54,9 @@ def format_band_list(bands: list[dict]) -> str:
     for band in bands:
         groups[band["genre"]].append(band)
 
+    id_width = max((len(b["id"]) for b in bands), default=0) + 2
+    name_width = max((len(b["name"]) for b in bands), default=0) + 2
+
     lines = []
     for genre in sorted(groups.keys()):
         lines.append(f"\n{genre}")
@@ -62,7 +65,7 @@ def format_band_list(bands: list[dict]) -> str:
             stars = RARITY_STARS.get(band["rarity"], "?????")
             attr_name, attr_value = best_attribute(band)
             lines.append(
-                f"  {band['id']:<24}{band['name']:<20}{stars:<10}best: {attr_name} {attr_value}"
+                f"  {band['id']:<{id_width}}{band['name']:<{name_width}}{stars:<10}best: {attr_name} {attr_value}"
             )
 
     return "\n".join(lines).strip("\n")

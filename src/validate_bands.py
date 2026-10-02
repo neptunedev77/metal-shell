@@ -22,6 +22,9 @@ REQUIRED_ATTRIBUTES = ["riffs", "vocals", "drums", "heaviness", "atmosphere", "p
 ATTR_MIN, ATTR_MAX = 0, 100
 ID_PATTERN = re.compile(r"^[a-z0-9]+(_[a-z0-9]+)*$")
 
+# Words used as keywords by $sell, so no band may be called like this.
+RESERVED_WORDS = {"all", "rarity"}
+
 # Current data convention: rarity follows popularity (not combat strength).
 # Used only to raise warnings, so a new band with a mismatched value is noticed.
 POPULARITY_RANGES = {
@@ -70,6 +73,8 @@ def validate_bands(bands: list) -> tuple[list[str], list[str]]:
         if "id" in band:
             if not isinstance(bid, str) or not ID_PATTERN.match(bid):
                 errors.append(f"{tag}: invalid id {bid!r} (use lowercase_snake_case)")
+            elif bid in RESERVED_WORDS:
+                errors.append(f"{tag}: id {bid!r} is a reserved word")
 
         # name
         name = band.get("name")
@@ -78,6 +83,10 @@ def validate_bands(bands: list) -> tuple[list[str], list[str]]:
                 errors.append(f"{tag}: empty or invalid name {name!r}")
             elif name != name.strip():
                 errors.append(f"{tag}: name has leading/trailing spaces {name!r}")
+            elif "," in name:
+                errors.append(f"{tag}: name contains a comma, which breaks $team/$sell parsing")
+            elif name.lower() in RESERVED_WORDS:
+                errors.append(f"{tag}: name {name!r} is a reserved word")
             elif len(name) > 30:
                 warnings.append(f"{tag}: name longer than 30 chars may break the card layout")
 

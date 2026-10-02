@@ -1,3 +1,8 @@
+try:
+    import readline  # noqa: F401  (enables up/down history and left/right editing in input())
+except ImportError:
+    pass
+
 from src.collection import load_player, save_player, regen_income
 from src.packs import get_remaining_packs, can_claim_daily
 from src.config import MAX_PACKS
@@ -51,6 +56,8 @@ def main():
             handler(args)
         except SystemExit:
             break
+        except (KeyboardInterrupt, EOFError):
+            print("\n(cancelled)")
 
 
 if __name__ == "__main__":
