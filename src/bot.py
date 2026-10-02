@@ -1,13 +1,6 @@
 import random
 
-RARITY_WEIGHTS = {
-    "Common": 50,
-    "Uncommon": 25,
-    "Rare": 15,
-    "Epic": 7,
-    "Legendary": 3,
-}
-
+from src.config import RARITY_WEIGHTS
 
 def generate_bot_team(catalog: list[dict]) -> list[dict]:
     """Pick 3 distinct random bands from the whole catalog, weighted by rarity."""

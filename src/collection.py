@@ -2,20 +2,12 @@ import json
 from pathlib import Path
 import time
 
+from src.config import (
+    SELL_VALUES, INCOME_AMOUNT, INCOME_INTERVAL_SECONDS, MAX_INCOME_MINUTES,
+)
+
 
 PLAYER_PATH = Path(__file__).resolve().parent.parent / "data" / "player.json"
-
-SELL_VALUES = {
-    "Common": 20,
-    "Uncommon": 40,
-    "Rare": 80,
-    "Epic": 150,
-    "Legendary": 300,
-}
-
-INCOME_AMOUNT = 5          # coins per minute
-INCOME_INTERVAL_SECONDS = 60
-MAX_INCOME_MINUTES = 120    # cap: at most 2 hours of accumulated income at once
 
 def load_player(path: Path = PLAYER_PATH) -> dict:
     with open(path, "r", encoding="utf-8") as f:

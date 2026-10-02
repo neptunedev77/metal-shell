@@ -4,9 +4,8 @@ from src.battle import (
     create_battle_team, alive_bands, is_team_defeated, resolve_round, draw_attribute,
 )
 from src.bot import generate_bot_team, choose_band as bot_choose_band
+from src.config import BATTLE_REWARD
 from src.commands.common import get_fresh_player
-
-BATTLE_REWARD = 200
 
 
 def cmd_battle(args: list[str]) -> None:

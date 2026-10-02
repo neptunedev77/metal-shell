@@ -1,5 +1,6 @@
 from src.collection import load_player, save_player, regen_income
 from src.packs import get_remaining_packs, can_claim_daily
+from src.config import MAX_PACKS
 from src.commands import COMMANDS
 
 PROMPT = "$ "
@@ -15,7 +16,7 @@ def main():
         print(f"(+{earned} coins earned while you were away)")
 
     remaining_packs = get_remaining_packs(player)
-    print(f"Packs ready to open: {remaining_packs}/5")
+    print(f"Packs ready to open: {remaining_packs}/{MAX_PACKS}")
 
     if can_claim_daily(player):
         print("Your daily pack is ready to claim.")
@@ -37,6 +38,8 @@ def main():
             raw = raw[1:]
 
         parts = raw.split()
+        if not parts:
+            continue
         command, args = parts[0].lower(), parts[1:]
 
         handler = COMMANDS.get(command)

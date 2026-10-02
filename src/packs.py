@@ -2,20 +2,12 @@ import random
 import time
 
 from src.cards import load_bands
-from src.collection import spend_coins, add_band, add_coins, SELL_VALUES
+from src.collection import spend_coins, add_band, add_coins
+from src.config import (
+    RARITY_WEIGHTS, SELL_VALUES, PACK_COST, MAX_PACKS,
+    REGEN_INTERVAL_SECONDS, DAILY_COOLDOWN_SECONDS,
+)
 
-RARITY_WEIGHTS = {
-    "Common": 50,
-    "Uncommon": 25,
-    "Rare": 15,
-    "Epic": 7,
-    "Legendary": 3,
-}
-
-PACK_COST = 300
-MAX_PACKS = 5
-REGEN_INTERVAL_SECONDS = 12 * 60  # 1 new pack every 12 minutes
-DAILY_COOLDOWN_SECONDS = 24 * 60 * 60
 
 PACKS = {
     "heavy_metal": {"display_name": "Heavy Metal Pack", "cost": PACK_COST},

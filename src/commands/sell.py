@@ -1,8 +1,9 @@
 from src.cards import load_bands
 from src.collection import (
-    save_player, get_owned_bands, add_coins, remove_band, SELL_VALUES,
+    save_player, get_owned_bands, add_coins, remove_band,
     sell_bands, get_bands_by_rarity, remove_bands_from_team,
 )
+from src.config import SELL_VALUES
 from src.commands.common import get_fresh_player
 
 

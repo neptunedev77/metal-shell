@@ -6,6 +6,7 @@ from src.packs import (
     PACKS, open_pack, get_remaining_packs, get_seconds_until_next_pack,
     format_countdown, claim_daily, can_claim_daily, get_pool_hint,
 )
+from src.config import MAX_PACKS
 from src.commands.common import get_fresh_player
 
 
@@ -41,8 +42,8 @@ def cmd_packs(args: list[str]) -> None:
     player = get_fresh_player()
     remaining = get_remaining_packs(player)
 
-    print(f"Packs available: {remaining}/5")
-    if remaining < 5:
+    print(f"Packs available: {remaining}/{MAX_PACKS}")
+    if remaining < MAX_PACKS:
         wait = format_countdown(get_seconds_until_next_pack(player))
         print(f"Next pack in: {wait}")
 
@@ -96,7 +97,7 @@ def cmd_open(args: list[str]) -> None:
         print(f"\n{band['name'].upper()} ({band['rarity']}) — DUPLICATE")
         print(f"Sold for {duplicate_value} coins.")
 
-    print(f"Coins: {player['coins']} | Packs: {get_remaining_packs(player)}/5")
+    print(f"Coins: {player['coins']} | Packs: {get_remaining_packs(player)}/{MAX_PACKS}")
 
 
 def cmd_daily(args: list[str]) -> None:

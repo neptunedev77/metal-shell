@@ -5,15 +5,7 @@ import termios
 import time
 import tty
 
-
-DRUM_COOLDOWN_SECONDS = 60
-
-DRUM_REWARDS = {
-    "perfect": 100,
-    "great": 60,
-    "good": 30,
-    "miss": 0,
-}
+from src.config import DRUM_COOLDOWN_SECONDS, DRUM_REWARDS
 
 
 def _key_available() -> bool:
