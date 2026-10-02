@@ -32,8 +32,20 @@ INCOME_AMOUNT = 5                       # coins per interval
 INCOME_INTERVAL_SECONDS = 60
 MAX_INCOME_MINUTES = 120                # cap: at most 2 hours accumulated
 
-# --- Battle ---------------------------------------------------------------
-BATTLE_REWARD = 200
+# --- Battle difficulty ----------------------------------------------------
+# team_candidates: how many bands the BOT draws (weighted by rarity) before keeping 3.
+# team_pick:       which 3 to keep among them, by average combat stats
+#                  ("weakest", "random" or "strongest").
+# smart_chance:    chance the BOT plays its best band for the round's attribute
+#                  (otherwise it plays a random alive band).
+# reward:          coins for winning.
+# "normal" is the original behaviour.
+DEFAULT_DIFFICULTY = "normal"
+DIFFICULTIES = {
+    "easy":   {"team_candidates": 6,  "team_pick": "weakest",   "smart_chance": 0.5, "reward": 100},
+    "normal": {"team_candidates": 3,  "team_pick": "random",    "smart_chance": 0.7, "reward": 200},
+    "hard":   {"team_candidates": 15, "team_pick": "strongest", "smart_chance": 0.9, "reward": 350},
+}
 
 # --- Drum Roll minigame ---------------------------------------------------
 DRUM_COOLDOWN_SECONDS = 60

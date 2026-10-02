@@ -8,7 +8,7 @@ def cmd_help(args: list[str]) -> None:
     print("  $packs                 - list pack types, cost, and packs available")
     print("  $open <pack type>      - buy and open a pack")
     print("  $daily                 - claim your free daily band")
-    print("  $battle                - fight a BOT using your team")
+    print("  $battle [difficulty]   - fight a BOT: easy, normal (default) or hard")
     print("  $progress              - show collection progress")
     print("  $sell <rarity>         - sell all bands of a rarity")
     print("  $sell band <name>      - sell a specific band")

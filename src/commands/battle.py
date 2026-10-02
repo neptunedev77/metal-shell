@@ -4,11 +4,20 @@ from src.battle import (
     create_battle_team, alive_bands, is_team_defeated, resolve_round, draw_attribute,
 )
 from src.bot import generate_bot_team, choose_band as bot_choose_band
-from src.config import BATTLE_REWARD
+from src.config import DIFFICULTIES, DEFAULT_DIFFICULTY
 from src.commands.common import get_fresh_player
 
 
 def cmd_battle(args: list[str]) -> None:
+    difficulty = DEFAULT_DIFFICULTY
+    if args:
+        if len(args) != 1 or args[0].lower() not in DIFFICULTIES:
+            print(f"Usage: $battle [{'|'.join(DIFFICULTIES)}]")
+            return
+        difficulty = args[0].lower()
+    settings = DIFFICULTIES[difficulty]
+    reward = settings["reward"]
+
     catalog = load_bands()
     player = get_fresh_player()
     team_bands = get_team_bands(player, catalog)
@@ -18,9 +27,12 @@ def cmd_battle(args: list[str]) -> None:
         return
 
     player_team = create_battle_team(team_bands)
-    bot_team_bands = generate_bot_team(catalog)
+    bot_team_bands = generate_bot_team(
+        catalog, settings["team_candidates"], settings["team_pick"]
+    )
     bot_team = create_battle_team(bot_team_bands)
 
+    print(f"\nDIFFICULTY: {difficulty.upper()} (win reward: {reward} coins)")
     print("\nYOUR TEAM          BOT TEAM")
     for p, b in zip(player_team, bot_team):
         print(f"  {p['band']['name']:<18} {b['band']['name']}")
@@ -53,7 +65,7 @@ def cmd_battle(args: list[str]) -> None:
             choice = input(f"\nChoose your band ({'/'.join(options.keys())}): ").strip()
 
         player_pick = options[choice]
-        bot_pick = bot_choose_band(alive_bot, attribute)
+        bot_pick = bot_choose_band(alive_bot, attribute, settings["smart_chance"])
 
         print(f"\nYou chose {player_pick['band']['name']} ({player_pick['band']['attributes'][attribute]})")
         print(f"BOT chose {bot_pick['band']['name']} ({bot_pick['band']['attributes'][attribute]})")
@@ -78,9 +90,9 @@ def cmd_battle(args: list[str]) -> None:
     print()
     if is_team_defeated(bot_team):
         print("YOU WIN!")
-        add_coins(player, BATTLE_REWARD)
+        add_coins(player, reward)
         save_player(player)
-        print(f"\n+{BATTLE_REWARD} coins")
+        print(f"\n+{reward} coins")
         print(f"Coins: {player['coins']}")
     else:
         print("YOU LOSE!")
