@@ -13,7 +13,7 @@ SELL_VALUES = {
     "Legendary": 300,
 }
 
-INCOME_AMOUNT = 10          # coins per minute
+INCOME_AMOUNT = 5          # coins per minute
 INCOME_INTERVAL_SECONDS = 60
 MAX_INCOME_MINUTES = 120    # cap: at most 2 hours of accumulated income at once
 
